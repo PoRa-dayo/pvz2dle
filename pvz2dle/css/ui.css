@@ -1,0 +1,86 @@
+﻿.WindowFrame{
+    height:600px;
+    width:var(--screen-width);
+}
+.WindowFrame{
+    top:0;left:0;overflow:hidden;position:absolute;
+}
+@font-face {
+    font-family: "DEFAULT_FONT";
+    src: url('../font/en.ttf') format('truetype');
+}
+* {
+    font-family: "DEFAULT_FONT";
+}
+.dFlexWrap_PvZ2DleGuessBox > * {
+    border: 2px solid rgb(96 139 168);
+    border-radius: 5px;
+    font-size:20px;
+    height:45px;
+    text-align:center;
+    width: calc((100% - 37px) / 9);
+    background-color: lightblue;
+}
+
+.dFlexWrap_PvZ2DleGuessBox {
+    border: 2px dotted rgb(96 139 168);
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: auto;
+    left: 11.5%;
+    z-index:1000;
+    top: 160px;
+    height: 60%;
+    width: 77%;
+    padding-top: 8px;
+    background-color: beige;
+    align-content: start;
+}
+
+.dFlexWrap_PvZ2DleItem > * {
+    border: 2px solid rgb(96 139 168);
+    border-radius: 5px;
+    font-size:20px;
+    height:45px;
+    text-align:center;
+    width: calc((100% - 37px) / 9);
+    padding-top:5px;
+    position:relative;
+    background-color: lightblue;
+}
+
+.dFlexWrap_PvZ2DleItem {
+    border: 2px dotted rgb(96 139 168);
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: auto;
+    left: 10%;
+    top: 160px;
+    height: 70%;
+    width: 80%;
+    padding-top: 8px;
+    align-content: start;
+    background: rgba(0,0,0,0.8);
+}
+
+.Flex_break {
+    flex-basis: 100%;
+    height: 5px;
+    background: none;
+    border: none;
+}
+
+.Button {
+    cursor: pointer;
+    transition: filter .2s;
+}
+.Button:hover {
+    filter:brightness(110%);
+}
+.Button:active {
+    filter:brightness(90%);
+}
