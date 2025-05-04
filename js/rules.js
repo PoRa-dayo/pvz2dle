@@ -12,7 +12,7 @@ NewEle(`AlmanacButton`, 'div', `background: url(images/Almanac_Button.png) no-re
         },rulesShade);
         tutorialTitle.style.textShadow=txtshadow;
         let tutorialTxt = NewEle("tutorialTxt","center",`color:white;position:relative;font-size:18px;width:75%;display:inline-block;`,{
-            innerHTML: "You have 8 guesses. Every time you guess, you'll see these colors behind the plant's stats:",
+            innerHTML: "If search results are not found for Name, then World and Family will be considered.<br/>You have 8 guesses. Every time you guess, you'll see these colors behind the plant's stats:",
         },TheRules);
         tutorialTxt.style.textShadow=txtshadow;
         let ExampleList = NewEle(`ExampleList`, 'div', 'position:relative;height:65px;top:0px;left:0%;width:22.2em;background:none;border:none;grid-template-columns: repeat(3, 110px);gap:10px;', {

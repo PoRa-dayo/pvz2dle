@@ -643,7 +643,7 @@ const oIntensiveCarrot = {
     Attack: null,
     World: "Neon Mixtape Tour",
     Recharge: "Sluggish",
-    RangeArea: null,
+    RangeArea: "Single",
     Special: "Restore Life",
     Usage: "Single, Instant",
     Family: "Enchant-mint",

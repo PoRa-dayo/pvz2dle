@@ -108,11 +108,22 @@ let AnswerBox = NewEle("AnswerBox","input","position:absolute;top:100px;left:25%
 AnswerBox.oninput = () => {
     if (AnswerBox.value.length > 0) {
         let Ans = AnswerBox.value.toLowerCase();
-        let plantList = [];
-        for (let plantName in AllPlantNames) {
+        let plantList = [], worldList = [], familyList = [];
+        for (let plant of AllPlants) {
+            let plantName = plant.EngName;
+            let plantWorld = plant.World.toLowerCase();
+            let plantFamily = plant.Family.toLowerCase();
             let LowerPlantName = plantName.toLowerCase();
-            if (LowerPlantName.startsWith(Ans) && !GuessedPlants.has(plantName)) {
-                plantList.push(plantName);
+            if (!GuessedPlants.has(plantName)) {
+                if (LowerPlantName.startsWith(Ans)) {
+                    plantList.push(plantName);
+                }
+                if (plantWorld.startsWith(Ans)) {
+                    worldList.push(plantName);
+                }
+                if (plantFamily.startsWith(Ans)) {
+                    familyList.push(plantName);
+                }
             }
         }
         if (plantList.length > 0) {
@@ -120,6 +131,40 @@ AnswerBox.oninput = () => {
             GuessingListDOM.style.pointerEvents = "auto";
             GuessingList.innerHTML = StatText;
             for (let plName of plantList) {
+                let plantObj = AllPlantNames[plName];
+                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
+                    innerText: plName,
+                    onclick: () => {AddGuess(plantObj.EngName)}
+                }, GuessingList);
+                for (let stat of StatList) {
+                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;height:60px;', {
+                        innerText: plantObj[stat] ?? "No",
+                        onclick: () => {AddGuess(plantObj.EngName)}
+                    }, GuessingList);
+                }
+            }
+        } else if (worldList.length > 0) {
+            GuessingListDOM.style.opacity = 1;
+            GuessingListDOM.style.pointerEvents = "auto";
+            GuessingList.innerHTML = StatText;
+            for (let plName of worldList) {
+                let plantObj = AllPlantNames[plName];
+                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
+                    innerText: plName,
+                    onclick: () => {AddGuess(plantObj.EngName)}
+                }, GuessingList);
+                for (let stat of StatList) {
+                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;height:60px;', {
+                        innerText: plantObj[stat] ?? "No",
+                        onclick: () => {AddGuess(plantObj.EngName)}
+                    }, GuessingList);
+                }
+            }
+        } else if (familyList.length > 0) {
+            GuessingListDOM.style.opacity = 1;
+            GuessingListDOM.style.pointerEvents = "auto";
+            GuessingList.innerHTML = StatText;
+            for (let plName of familyList) {
                 let plantObj = AllPlantNames[plName];
                 NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
                     innerText: plName,

@@ -93,7 +93,7 @@ NewEle(`ShareButton`, 'div', `background: url(images/Share_Button.png) no-repeat
         if (localStorage.FinalResult === "Streak") {
             IntroShareStr += " This is what ended my run:";
         }
-        let FinalStr = IntroShareStr + `<br/>` +  ResultStr + `Play PvZ2dle here:<br/>https://pora-dayo.github.io/pvz2dle/`;
+        let FinalStr = IntroShareStr + `<br/>` +  ResultStr + `Play PvZ2Dle here:<br/>https://pora-dayo.github.io/pvz2dle/`;
         NewEle(`CopyButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;left:0px;width:150px;height:100px;font-size:25px;padding-top:65px;`, {
             className: "Button",
             innerText: "SHARE",
