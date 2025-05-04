@@ -310,7 +310,7 @@ const oWinterMelon = {
     RangeArea: "Lobbed, 3x3",
     Special: "Chill",
     Usage: null,
-    Family: "Arma-mint",
+    Family: "Winter-mint",
 };
 const oHotPotato = {
     CodeName: "oHotPotato",
