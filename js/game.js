@@ -1,12 +1,12 @@
 "use strict";
 const EDAll = $("dAll");
 const txtshadow = "rgb(0 0 0) 2px 0px 0px, rgb(0 0 0) 1.75517px 0.958851px 0px, rgb(0 0 0) 1.0806px 1.68294px 0px, rgb(0 0 0) 0.141474px 1.99499px 0px, rgb(0 0 0) -0.832294px 1.81859px 0px, rgb(0 0 0) -1.60229px 1.19694px 0px, rgb(0 0 0) -1.97998px 0.28224px 0px, rgb(0 0 0) -1.87291px -0.701566px 0px, rgb(0 0 0) -1.30729px -1.5136px 0px, rgb(0 0 0) -0.421592px -1.95506px 0px, rgb(0 0 0) 0.567324px -1.91785px 0px, rgb(0 0 0) 1.41734px -1.41108px 0px, rgb(0 0 0) 1.92034px -0.558831px 0px";
-function showTxt(top, txt, left=35, size = 40){
-    NewEle("","a","z-index: 258; position: absolute; font-size: " + size + "px;left:" + left + "%;top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
+function showTxt(top, txt, left=35, size = 4){
+    NewEle("","a","z-index: 258; position: absolute; font-size: " + size + "vw;left:" + left + "%;top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
         innerText:txt,
     },EDAll);
-}function showTxtCenter(top, txt, size = 50){
-    NewEle("","a","z-index: 258; position:relative; font-size: " + size + "px;display:block;margin:auto;padding-top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
+}function showTxtCenter(top, txt, size = 4){
+    NewEle("","a","z-index: 258; position:relative; font-size: " + size + "vw;display:block;margin:auto;padding-top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
         innerText:txt,
     },EDAll);
 }
@@ -81,9 +81,6 @@ AnswerBox.oninput = () => {
             GuessingList.innerHTML = StatText;
             for (let plName of plantList) {
                 let plantObj = AllPlantNames[plName];
-                NewEle('', 'div', '', {
-                    className: 'Flex_break',
-                }, GuessingList);
                 NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
                     innerText: plName,
                     onclick: () => {AddGuess(plantObj.EngName)}
@@ -134,9 +131,6 @@ function AddGuess(plantName) {
     GuessingList.style.opacity = 0;
     GuessingList.style.pointerEvents = "none";
     let plantObj = AllPlantNames[plantName];
-    GuessedList.innerHTML += `
-                <div class="Flex_break"></div>
-            `;
     let correct = (plantName === TodaysPlant.EngName);
     let partiallyCorrect = findCommonConsecutiveLetters(plantName, TodaysPlant.EngName);
     let tem = NewEle(`${plantName}_Name`, 'div', `background-color:${correct ? "green" : (partiallyCorrect ? "yellow" : "red")}; height:60px;`, {
@@ -181,13 +175,13 @@ function AddGuess(plantName) {
     if (correctCount >= 7) {
         ClearChild(AnswerBox);
         if (GuessedPlants.size <= 1) {
-            showTxtCenter(30,"What the fuck.", 35);
+            showTxtCenter(30,"What the fuck.", 4);
         } else {
-            showTxtCenter(30, "Congrats! You won in " + GuessedPlants.size + " tries!", 35);
+            showTxtCenter(30, "Congrats! You won in " + GuessedPlants.size + " tries!", 4);
         }
     } else if (GuessedPlants.size >= 8) {
         ClearChild(AnswerBox);
-        showTxtCenter(48,"No more guesses... Today's plant is: " + TodaysPlant.EngName, 35);
+        showTxtCenter(48,"No more guesses... Today's plant is: " + TodaysPlant.EngName, 4);
     }
 }
 
@@ -195,26 +189,28 @@ NewEle(`AlmanacButton`, 'div', `background: url(images/Almanac_Button.png) no-re
     className: "Button",
     onclick: () => {
         let rulesShade = NewEle("rulesShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:1008;background:rgba(0,0,0,0.8);",{},EDAll);
-        let TheRules = NewEle("PvZ2DleRules","center","position:absolute;background-position-x:center;width:100%;height:100%;background-image:url(images/TutorialBoard.webp);background-repeat:no-repeat;",{
+        let RulesBoard = NewEle("RulesBoard","center","position:absolute;left:10%;background-position-x:center;width:80%;height:100vh;overflow:auto;background-size:100% 100%;background-image:url(images/TutorialBoard.webp);background-repeat:no-repeat;",{
         },rulesShade);
-        let tutorialTitle = NewEle("tutorialTitle","center",`color:white;position:absolute;font-size:40px;width:100%;top:30px;`,{
+        let TheRules = NewEle("PvZ2DleRules","center","position:absolute;left:10%;top:22%;background-position-x:center;width:80%;height:73vh;overflow:auto;",{
+        },rulesShade);
+        let tutorialTitle = NewEle("tutorialTitle","center",`color:white;position:absolute;font-size:5vw;width:100%;top:1.5%;`,{
             innerText: "Welcome to PvZ2Dle!"
-        },TheRules);
+        },rulesShade);
         tutorialTitle.style.textShadow=txtshadow;
-        let tutorialTxt = NewEle("tutorialTxt","center",`color:white;position:relative;font-size:18px;padding-top:150px;width:750px;display:inline-block;`,{
+        let tutorialTxt = NewEle("tutorialTxt","center",`color:white;position:relative;font-size:18px;width:75%;display:inline-block;`,{
             innerHTML: "You have 8 guesses. Every time you guess, you'll see these colors behind the plant's stats:",
         },TheRules);
         tutorialTxt.style.textShadow=txtshadow;
-        let ExampleList = NewEle(`ExampleList`, 'div', 'position:relative;height:65px; width:50%; top:0px; left:0px; background:none;border:none;', {
+        let ExampleList = NewEle(`ExampleList`, 'div', 'position:relative;height:65px;top:0px;left:0%;width:22.2em;background:none;border:none;grid-template-columns: repeat(3, 110px);gap:10px;', {
             className: 'dFlexWrap_PvZ2DleItem',
         }, TheRules);
-        NewEle(`WRONG`, 'div', 'background-color:red; width:calc((100% - 15px) / 3);height:30px;', {
+        NewEle(`WRONG`, 'div', 'background-color:red;height:30px;font-size:14px;padding-top:0px;', {
             innerText: "WRONG",
         }, ExampleList);
-        NewEle(`CORRECT`, 'div', 'background-color:green; width:calc((100% - 15px) / 3);height:30px;', {
+        NewEle(`CORRECT`, 'div', 'background-color:green;height:30px;font-size:14px;padding-top:0px;', {
             innerText: "CORRECT",
         }, ExampleList);
-        NewEle(`PARTIALLY CORRECT`, 'div', 'background-color:yellow; width:calc((100% - 15px) / 3);height:30px;', {
+        NewEle(`PARTIALLY CORRECT`, 'div', 'background-color:yellow;height:30px;font-size:14px;padding-top:0px;', {
             innerText: "PARTIALLY CORRECT",
         }, ExampleList);
         let theText = `For Name, Range/Area, Usage, and Special, the stat will be Partially Correct if there are 3 or more common consecutive letters between your guess and the Correct stat. (e.g. <i>Pea</i> shoo<i>ter</i>  and Re<i>peater</i>)</br></br>
@@ -223,7 +219,7 @@ NewEle(`AlmanacButton`, 'div', `background: url(images/Almanac_Button.png) no-re
                 For World and Family, the stat will be Partially Correct if you are 2 worlds/families (or less) away from the Correct one, following this order:</br></br>
         ` + WorldArr.join(", ") + `<br/><br/>` + FamilyArr.join(", ");
 
-        let tutorialTxt2 = NewEle("tutorialTxt2","center",`color:white;position:relative;font-size:18px;width:750px;display:inline-block;`,{
+        let tutorialTxt2 = NewEle("tutorialTxt2","center",`color:white;position:relative;font-size:18px;width:75%;display:inline-block;`,{
             innerHTML: theText,
         },TheRules);
         tutorialTxt2.style.textShadow=txtshadow;
