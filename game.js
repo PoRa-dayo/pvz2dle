@@ -1,22 +1,53 @@
 "use strict";
 const EDAll = $("dAll");
-const txtshadow = "rgb(0 0 0) 2px 0px 0px, rgb(0 0 0) 1.75517px 0.958851px 0px, rgb(0 0 0) 1.0806px 1.68294px 0px, rgb(0 0 0) 0.141474px 1.99499px 0px, rgb(0 0 0) -0.832294px 1.81859px 0px, rgb(0 0 0) -1.60229px 1.19694px 0px, rgb(0 0 0) -1.97998px 0.28224px 0px, rgb(0 0 0) -1.87291px -0.701566px 0px, rgb(0 0 0) -1.30729px -1.5136px 0px, rgb(0 0 0) -0.421592px -1.95506px 0px, rgb(0 0 0) 0.567324px -1.91785px 0px, rgb(0 0 0) 1.41734px -1.41108px 0px, rgb(0 0 0) 1.92034px -0.558831px 0px";
-function showTxt(top, txt, left=35, size = 4){
-    NewEle("","a","z-index: 258; position: absolute; font-size: " + size + "vw;left:" + left + "%;top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
-        innerText:txt,
-    },EDAll);
-}function showTxtCenter(top, txt, size = 4){
-    NewEle("","a","z-index: 258; position:relative; font-size: " + size + "vw;display:block;margin:auto;padding-top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
-        innerText:txt,
-    },EDAll);
+let GameMode;
+if (localStorage.CurrentGameMode) {
+    GameMode = localStorage.CurrentGameMode;
+} else {
+    GameMode = "Daily";
+    localStorage.CurrentGameMode = "Daily";
 }
-
+if (!localStorage["StreakHunt_CurrentStreak"]) {
+    localStorage["StreakHunt_CurrentStreak"] = "1";
+}
+const TextDOM = NewEle(`TextDOM`, 'div', 'width:100%;height:100%;position:absolute;left:0;top:0;', {
+}, EDAll);
+const txtshadow = "rgb(0 0 0) 2px 0px 0px, rgb(0 0 0) 1.75517px 0.958851px 0px, rgb(0 0 0) 1.0806px 1.68294px 0px, rgb(0 0 0) 0.141474px 1.99499px 0px, rgb(0 0 0) -0.832294px 1.81859px 0px, rgb(0 0 0) -1.60229px 1.19694px 0px, rgb(0 0 0) -1.97998px 0.28224px 0px, rgb(0 0 0) -1.87291px -0.701566px 0px, rgb(0 0 0) -1.30729px -1.5136px 0px, rgb(0 0 0) -0.421592px -1.95506px 0px, rgb(0 0 0) 0.567324px -1.91785px 0px, rgb(0 0 0) 1.41734px -1.41108px 0px, rgb(0 0 0) 1.92034px -0.558831px 0px";
+function showTxt(id, top, txt, left=35, size = 2){
+    NewEle(id,"a","z-index: 258; position: absolute; font-size: " + size + "em;left:" + left + "%;top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
+        innerText:txt,
+    },EDAll);
+}function showTxtCenter(id, top, txt, size = 2){
+    NewEle(id,"a","z-index: 258; position:relative; font-size: " + size + "em;display:block;margin:auto;padding-top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
+        innerText:txt,
+    },TextDOM);
+}
+let DateInt = new Date(),
+    DateValue = DateInt.getDate()+(DateInt.getMonth()+1)*100+DateInt.getFullYear()*10000,
+    DateValue2 = Math.floor(((Math.abs(DateInt.getDate()*(DateInt.getMonth()+1)-DateInt.getFullYear())/DateValue)+DateInt.getDay())*Math.sqrt(DateValue));
+if (DateValue+"" !== localStorage.DateLastPlayed) {
+    localStorage.removeItem("DateLastPlayed");
+    localStorage.removeItem("GuessedPlants");
+    localStorage.removeItem("GuessResults");
+    localStorage.setItem("DateLastPlayed", DateValue+"");
+    console.log("reset");
+}
+if (!localStorage.userSeed) {
+    let number = '';
+    number += Math.floor(Math.random() * 9 + 1);
+    for (let i = 1; i < 25; i++) {
+        number += Math.floor(Math.random() * 10);
+    }
+    localStorage.setItem("userSeed", number);
+}
 
 /*--PLANT LIST START--*/
 let AllPlantNames = [];
 let json = {};
+let AllPlantsLen = 0;
 for (let i in AllPlants) {
     json[AllPlants[i].EngName] = AllPlants[i];
+    AllPlantsLen++;
 }
 AllPlantNames = json;
 /*--PLANT LIST END--*/
@@ -44,8 +75,12 @@ let FamilyList = {};
     }
 })();
 
-showTxtCenter(28,"GUESS TODAY'S PLANT!");
-let TodaysPlant = AllPlants.random();
+showTxtCenter("TopText", 35,"GUESS TODAY'S PLANT!");
+showTxtCenter("judgmentText", 30,"placeholder", 2);
+$("TopText").style.width = "300px";
+SetNone($("judgmentText"));
+let TodaysPlant;
+
 const StatList = ["SunNum", "World", "Attack", "Recharge", "RangeArea", "Usage", "Special", "Family"];
 let StatText = `
     <div>NAME</div>
@@ -58,28 +93,90 @@ let StatText = `
     <div>SPECIAL</div>
     <div>FAMILY</div>
 `;
+
+/*THE ANSWER BOX AND THE GUESSING LIST THAT SHOWS UP WHEN YOU PUT IN A PLANT'S NAME*/
 let GuessedPlants = new Set();
-let GuessingList = NewEle(`dFlexWrap_PvZ2DleGuessBox`, 'div', 'opacity:0;', {
-    className: 'dFlexWrap_PvZ2DleGuessBox',
+let GuessResults = {};
+let GuessingListDOM = NewEle(`GuessingListDOM`, 'div', 'width:100%;height:100%;position:absolute;left:0;top:0;opacity:0;pointer-events:none;', {
 }, EDAll);
+let GuessingList = NewEle(`dFlexWrap_PvZ2DleGuessBox`, 'div', 'z-index:900;', {
+    className: IsMobile ? 'dFlexWrap_PvZ2DleGuessBox_Mobile' : 'dFlexWrap_PvZ2DleGuessBox',
+}, GuessingListDOM);
 let AnswerBox = NewEle("AnswerBox","input","position:absolute;top:100px;left:25%;z-index:1000;width: 50%;height: 30px;font-size: 20px;text-rendering: optimizeSpeed;user-select:all;margin:0px;",{
     placeholder:"Type in a plant's name",
 },EDAll);
+let searchShade = NewEle("searchShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:500;background:rgba(0,0,0,0.5);display:none;",{},EDAll);
+let ReturnButton = NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
+    className: "Button",
+    onclick: () => {
+        GuessingListDOM.style.opacity = 0;
+        GuessingListDOM.style.pointerEvents = "none";
+        SetNone(searchShade);
+    }
+}, searchShade);
 AnswerBox.oninput = () => {
     if (AnswerBox.value.length > 0) {
         let Ans = AnswerBox.value.toLowerCase();
-        let plantList = [];
-        for (let plantName in AllPlantNames) {
+        let plantList = [], worldList = [], familyList = [];
+        for (let plant of AllPlants) {
+            let plantName = plant.EngName;
+            let plantWorld = plant.World.toLowerCase();
+            let plantFamily = plant.Family.toLowerCase();
             let LowerPlantName = plantName.toLowerCase();
-            if (LowerPlantName.startsWith(Ans) && !GuessedPlants.has(plantName)) {
-                plantList.push(plantName);
+            if (!GuessedPlants.has(plantName)) {
+                if (LowerPlantName.startsWith(Ans)) {
+                    plantList.push(plantName);
+                }
+                if (plantWorld.startsWith(Ans)) {
+                    worldList.push(plantName);
+                }
+                if (plantFamily.startsWith(Ans)) {
+                    familyList.push(plantName);
+                }
             }
         }
         if (plantList.length > 0) {
-            GuessingList.style.opacity = 1;
-            GuessingList.style.pointerEvents = "auto";
+            GuessingListDOM.style.opacity = 1;
+            GuessingListDOM.style.pointerEvents = "auto";
             GuessingList.innerHTML = StatText;
+            SetBlock(searchShade);
             for (let plName of plantList) {
+                let plantObj = AllPlantNames[plName];
+                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
+                    innerText: plName,
+                    onclick: () => {AddGuess(plantObj.EngName)}
+                }, GuessingList);
+                for (let stat of StatList) {
+                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;height:60px;', {
+                        innerText: plantObj[stat] ?? "No",
+                        onclick: () => {AddGuess(plantObj.EngName)}
+                    }, GuessingList);
+                }
+            }
+        } else if (worldList.length > 0) {
+            GuessingListDOM.style.opacity = 1;
+            GuessingListDOM.style.pointerEvents = "auto";
+            GuessingList.innerHTML = StatText;
+            SetBlock(searchShade);
+            for (let plName of worldList) {
+                let plantObj = AllPlantNames[plName];
+                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
+                    innerText: plName,
+                    onclick: () => {AddGuess(plantObj.EngName)}
+                }, GuessingList);
+                for (let stat of StatList) {
+                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;height:60px;', {
+                        innerText: plantObj[stat] ?? "No",
+                        onclick: () => {AddGuess(plantObj.EngName)}
+                    }, GuessingList);
+                }
+            }
+        } else if (familyList.length > 0) {
+            GuessingListDOM.style.opacity = 1;
+            GuessingListDOM.style.pointerEvents = "auto";
+            GuessingList.innerHTML = StatText;
+            SetBlock(searchShade);
+            for (let plName of familyList) {
                 let plantObj = AllPlantNames[plName];
                 NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
                     innerText: plName,
@@ -94,19 +191,24 @@ AnswerBox.oninput = () => {
             }
         } else {
             GuessingList.innerHTML = "";
-            GuessingList.style.opacity = 0;
-            GuessingList.style.pointerEvents = "none";
+            GuessingListDOM.style.opacity = 0;
+            GuessingListDOM.style.pointerEvents = "none";
+            SetNone(searchShade);
         }
     } else {
         GuessingList.innerHTML = "";
-        GuessingList.style.opacity = 0;
-        GuessingList.style.pointerEvents = "none";
+        GuessingListDOM.style.opacity = 0;
+        GuessingListDOM.style.pointerEvents = "none";
+        SetNone(searchShade);
     }
 }
+
+/*THE BOX CONTAINING YOUR SUBMITTED GUESSES*/
 let GuessedList = NewEle(`dFlexWrap_PvZ2DleItem`, 'div', '', {
-    className: 'dFlexWrap_PvZ2DleItem',
+    className: IsMobile ? 'dFlexWrap_PvZ2DleItem_Mobile' : 'dFlexWrap_PvZ2DleItem',
 }, EDAll);
-GuessedList.innerHTML = StatText;
+
+/*THE FUNCTIONS RELATED TO SUBMITTING A GUESS*/
 function findCommonConsecutiveLetters(str1, str2) {
     // Normalize strings to lowercase to make comparison case-insensitive
     str1 = (str1 + "").toLowerCase();
@@ -124,19 +226,28 @@ function findCommonConsecutiveLetters(str1, str2) {
 
     return false;
 }
+
+
 function AddGuess(plantName) {
     GuessedPlants.add(plantName);
+    localStorage.setItem((GameMode === "Daily" ? "" : "StreakHunt_") + "GuessedPlants",Array.from(GuessedPlants).join(','));
     AnswerBox.value = "";
     GuessingList.innerHTML = "";
-    GuessingList.style.opacity = 0;
-    GuessingList.style.pointerEvents = "none";
+    GuessingListDOM.style.opacity = 0;
+    GuessingListDOM.style.pointerEvents = "none";
+    SetNone(searchShade);
+    /*PLANT NAME*/
     let plantObj = AllPlantNames[plantName];
     let correct = (plantName === TodaysPlant.EngName);
     let partiallyCorrect = findCommonConsecutiveLetters(plantName, TodaysPlant.EngName);
     let tem = NewEle(`${plantName}_Name`, 'div', `background-color:${correct ? "green" : (partiallyCorrect ? "yellow" : "red")}; height:60px;`, {
         innerText: plantName
     }, GuessedList);
+    GuessResults[plantName] = [];
+    GuessResults[plantName][0] = correct ? 1 : (partiallyCorrect ? 2 : 0);
     let correctCount = 0;
+    let statCount = 0;
+    /*OTHER PLANT STATS*/
     for (let stat of StatList) {
         let correct = (plantObj[stat] === TodaysPlant[stat]);
         let partiallyCorrect = false;
@@ -171,63 +282,146 @@ function AddGuess(plantName) {
         let tem = NewEle(`${plantName}_${stat}`, 'div', `background-color:${correct ? "green" : (partiallyCorrect ? "yellow" : "red")}; height:60px;`, {
             innerText: plantObj[stat] ?? "No"
         }, GuessedList);
+        GuessResults[plantName][++statCount] = correct ? 1 : (partiallyCorrect ? 2 : 0);
     }
+    localStorage.setItem((GameMode === "Daily" ? "" : "StreakHunt_") + "GuessResults",JSON.stringify(GuessResults));
+    /*FINAL JUDGMENT*/
     if (correctCount >= 7) {
-        ClearChild(AnswerBox);
+        SetNone(AnswerBox);
+        SetBlock($("judgmentText"));
         if (GuessedPlants.size <= 1) {
-            showTxtCenter(30,"What the fuck.", 4);
+            $("judgmentText").innerHTML = "What the fuck.";
         } else {
-            showTxtCenter(30, "Congrats! You won in " + GuessedPlants.size + " tries!", 4);
+            $("judgmentText").innerHTML = "Congrats! You won in " + GuessedPlants.size + " tries!";
         }
+        if (GameMode === "Daily") {
+            localStorage.setItem("FinalResult","Won");
+            setTimeout(() => {
+                SetBlock($("ShareButton"));
+            },10);
+        } else {
+            let ContinueButton = NewEle(`ContinueButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;top:8%;width:150px;height:50px;font-size:25px;text-align:center;padding-top:20px;margin:auto;`, {
+                className: "Button",
+                innerText: "CONTINUE",
+                onclick: () => {
+                    localStorage.removeItem("StreakHunt_GuessedPlants");
+                    localStorage.removeItem("StreakHunt_GuessResults");
+                    localStorage.removeItem("StreakHunt_attemptSeed");
+                    localStorage["StreakHunt_CurrentStreak"] = (Number(localStorage["StreakHunt_CurrentStreak"])+1) + "";
+                    SwitchToStreakHunt();
+                    ClearChild(ContinueButton);
+                }
+            }, EDAll);
+        }
+
     } else if (GuessedPlants.size >= 8) {
-        ClearChild(AnswerBox);
-        showTxtCenter(48,"No more guesses... Today's plant is: " + TodaysPlant.EngName, 4);
+        SetNone(AnswerBox);
+        SetBlock($("judgmentText"));
+        $("judgmentText").innerHTML = "No more guesses... " + (GameMode === "Daily" ? "Today" : "This round") + "'s plant is: " + TodaysPlant.EngName;
+        setTimeout(() => {
+            SetBlock($("ShareButton"));
+        },10);
+        if (GameMode === "Streak") {
+            let ContinueButton = NewEle(`ContinueButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;top:8%;width:150px;height:50px;font-size:25px;text-align:center;padding-top:20px;margin:auto;`, {
+                className: "Button",
+                innerText: "RETRY",
+                onclick: () => {
+                    localStorage.removeItem("StreakHunt_GuessedPlants");
+                    localStorage.removeItem("StreakHunt_GuessResults");
+                    localStorage.removeItem("StreakHunt_attemptSeed");
+                    localStorage["StreakHunt_CurrentStreak"] = "1";
+                    SwitchToStreakHunt();
+                    ClearChild(ContinueButton);
+                }
+            }, EDAll);
+            localStorage.setItem("FinalResult","Streak");
+        } else {
+            localStorage.setItem("FinalResult","Lost");
+        }
     }
 }
 
-NewEle(`AlmanacButton`, 'div', `background: url(images/Almanac_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
-    className: "Button",
-    onclick: () => {
-        let rulesShade = NewEle("rulesShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:1008;background:rgba(0,0,0,0.8);",{},EDAll);
-        let RulesBoard = NewEle("RulesBoard","center","position:absolute;left:10%;background-position-x:center;width:80%;height:90vh;overflow:auto;background-size:100% 100%;background-image:url(images/TutorialBoard.webp);background-repeat:no-repeat;",{
-        },rulesShade);
-        let TheRules = NewEle("PvZ2DleRules","center","position:absolute;left:10%;top:20%;background-position-x:center;width:80%;height:66vh;overflow:auto;",{
-        },rulesShade);
-        let tutorialTitle = NewEle("tutorialTitle","center",`color:white;position:absolute;font-size:5vw;width:100%;top:1.5%;`,{
-            innerText: "Welcome to PvZ2Dle!"
-        },rulesShade);
-        tutorialTitle.style.textShadow=txtshadow;
-        let tutorialTxt = NewEle("tutorialTxt","center",`color:white;position:relative;font-size:18px;width:75%;display:inline-block;`,{
-            innerHTML: "You have 8 guesses. Every time you guess, you'll see these colors behind the plant's stats:",
-        },TheRules);
-        tutorialTxt.style.textShadow=txtshadow;
-        let ExampleList = NewEle(`ExampleList`, 'div', 'position:relative;height:65px;top:0px;left:0%;width:22.2em;background:none;border:none;grid-template-columns: repeat(3, 110px);gap:10px;', {
-            className: 'dFlexWrap_PvZ2DleItem',
-        }, TheRules);
-        NewEle(`WRONG`, 'div', 'background-color:red;height:30px;font-size:14px;padding-top:0px;', {
-            innerText: "WRONG",
-        }, ExampleList);
-        NewEle(`CORRECT`, 'div', 'background-color:green;height:30px;font-size:14px;padding-top:0px;', {
-            innerText: "CORRECT",
-        }, ExampleList);
-        NewEle(`PARTIALLY CORRECT`, 'div', 'background-color:yellow;height:30px;font-size:14px;padding-top:0px;', {
-            innerText: "PARTIALLY CORRECT",
-        }, ExampleList);
-        let theText = `For Name, Range/Area, Usage, and Special, the stat will be Partially Correct if there are 3 or more common consecutive letters between your guess and the Correct stat. (e.g. <i>Pea</i> shoo<i>ter</i>  and Re<i>peater</i>)</br></br>
-                For Sun Cost, the stat will be Partially Correct if you are only 25 sun (or less) away from the Correct stat.</br></br>
-                For Damage and Recharge, the stat will be Partially Correct if you are 1 level away from the Correct stat.</br></br>
-                For World and Family, the stat will be Partially Correct if you are 2 worlds/families (or less) away from the Correct one, following this order:</br></br>
-        ` + WorldArr.join(", ") + `<br/><br/>` + FamilyArr.join(", ");
+function SwitchToDailyChallenge() {
+    GameMode = "Daily";
+    localStorage.CurrentGameMode = GameMode;
+    GuessedPlants.clear();
+    GuessResults = {};
+    SetBlock(AnswerBox);
+    SetNone($("judgmentText"));
+    SetNone($("ShareButton"));
+    ClearChild($(`ContinueButton`));
+    $("TopText").innerHTML = "GUESS TODAY'S PLANT!";
+    /*TODAY'S PLANT!!!*/
+    Math.seedV2 = [DateValue,DateValue2];
+    TodaysPlant = AllPlants[Math.floor(Math.seededRandomV2(AllPlantsLen-1,0))];
+    /*TODAY'S PLANT!!!*/
 
-        let tutorialTxt2 = NewEle("tutorialTxt2","center",`color:white;position:relative;font-size:18px;width:75%;display:inline-block;`,{
-            innerHTML: theText,
-        },TheRules);
-        tutorialTxt2.style.textShadow=txtshadow;
-        NewEle(`AlmanacButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
-            className: "Button",
-            onclick: () => {
-                ClearChild(rulesShade);
-            }
-        }, rulesShade);
+    GuessedList.innerHTML = StatText;
+
+    /*AUTOMATICALLY SUBMIT GUESSES FROM LOCALSTORAGE*/
+    if (localStorage.GuessedPlants) {
+        for (let plantName of localStorage.GuessedPlants.split(",")) {
+            AddGuess(plantName);
+        }
+    }
+}
+
+
+/*STREAK HUNT*/
+function SwitchToStreakHunt() {
+    GameMode = "Streak";
+    localStorage.CurrentGameMode = GameMode;
+    GuessedPlants.clear();
+    GuessResults = {};
+    SetBlock(AnswerBox);
+    SetNone($("judgmentText"));
+    SetNone($("ShareButton"));
+    ClearChild($(`ContinueButton`));
+    $("TopText").innerHTML = "GUESS ROUND " + localStorage["StreakHunt_CurrentStreak"] + "'S PLANT!";
+    if (!localStorage.StreakHunt_attemptSeed) {
+        let number = '';
+        number += Math.floor(Math.random() * 9 + 1);
+        for (let i = 1; i < 25; i++) {
+            number += Math.floor(Math.random() * 10);
+        }
+        localStorage.setItem("StreakHunt_attemptSeed", number);
+    }
+    /*THIS ROUND'S PLANT!!!*/
+    Math.seedV2 = [localStorage.StreakHunt_attemptSeed,localStorage.userSeed];
+    TodaysPlant = AllPlants[Math.floor(Math.seededRandomV2(AllPlantsLen-1,0))];
+    /*THIS ROUND'S PLANT!!!*/
+
+    GuessedList.innerHTML = StatText;
+
+    /*AUTOMATICALLY SUBMIT GUESSES FROM LOCALSTORAGE*/
+    if (localStorage.StreakHunt_GuessedPlants) {
+        for (let plantName of localStorage.StreakHunt_GuessedPlants.split(",")) {
+            AddGuess(plantName);
+        }
+    }
+}
+
+if (localStorage.CurrentGameMode === "Daily") {
+    SwitchToDailyChallenge();
+} else {
+    SwitchToStreakHunt();
+}
+
+let DailyChallengeButton = NewEle(`DailyChallengeButton`, 'div', `background: url(images/Blue_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Streak" ? "block" : "none"}`, {
+    className: "Button",
+    innerText: "ENTER DAILY CHALLENGE MODE",
+    onclick: () => {
+        SetNone(DailyChallengeButton);
+        SetBlock(StreakHuntButton);
+        SwitchToDailyChallenge();
+    }
+}, EDAll);
+let StreakHuntButton = NewEle(`StreakHuntButton`, 'div', `background: url(images/Gold_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Daily" ? "block" : "none"}`, {
+    className: "Button",
+    innerText: "ENTER STREAK HUNT MODE",
+    onclick: () => {
+        SetBlock(DailyChallengeButton);
+        SetNone(StreakHuntButton);
+        SwitchToStreakHunt();
     }
 }, EDAll);
