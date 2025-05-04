@@ -14,7 +14,7 @@ const oPowerLily = {
     CodeName: "oPowerLily",
     EngName: "Power Lily",
     SunNum: 175,
-    Attack: "Normal",
+    Attack: null,
     World: "Premium",
     Recharge: "Very Slow",
     RangeArea: null,
