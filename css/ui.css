@@ -28,9 +28,9 @@
     display: grid;
     grid-template-columns: repeat(9, 109px);
     gap: 4px;
-    position: absolute;
+    position: relative;
     overflow: auto;
-    left: 10%;
+    margin: auto;
     z-index:1000;
     top: 160px;
     height: 60%;
@@ -38,6 +38,7 @@
     padding-top: 8px;
     background-color: beige;
     align-content: start;
+    max-width: 1030px;
 }
 
 .dFlexWrap_PvZ2DleItem > * {
@@ -58,12 +59,13 @@
     display: grid;
     grid-template-columns: repeat(9, 110px);
     gap: 4.5px;
-    position: absolute;
+    position: relative;
     overflow: auto;
-    left: 9%;
+    margin: auto;
     top: 160px;
     height: 70%;
     width: 81%;
+    max-width: 1030px;
     padding-top: 8px;
     align-content: start;
     background: rgba(0,0,0,0.8);

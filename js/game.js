@@ -1,5 +1,7 @@
 "use strict";
 const EDAll = $("dAll");
+const TextDOM = NewEle(`TextDOM`, 'div', 'width:100%;height:100%;position:absolute;left:0;top:0;', {
+}, EDAll);
 const txtshadow = "rgb(0 0 0) 2px 0px 0px, rgb(0 0 0) 1.75517px 0.958851px 0px, rgb(0 0 0) 1.0806px 1.68294px 0px, rgb(0 0 0) 0.141474px 1.99499px 0px, rgb(0 0 0) -0.832294px 1.81859px 0px, rgb(0 0 0) -1.60229px 1.19694px 0px, rgb(0 0 0) -1.97998px 0.28224px 0px, rgb(0 0 0) -1.87291px -0.701566px 0px, rgb(0 0 0) -1.30729px -1.5136px 0px, rgb(0 0 0) -0.421592px -1.95506px 0px, rgb(0 0 0) 0.567324px -1.91785px 0px, rgb(0 0 0) 1.41734px -1.41108px 0px, rgb(0 0 0) 1.92034px -0.558831px 0px";
 function showTxt(top, txt, left=35, size = 4){
     NewEle("","a","z-index: 258; position: absolute; font-size: " + size + "vw;left:" + left + "%;top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
@@ -8,7 +10,7 @@ function showTxt(top, txt, left=35, size = 4){
 }function showTxtCenter(top, txt, size = 4){
     NewEle("","a","z-index: 258; position:relative; font-size: " + size + "vw;display:block;margin:auto;padding-top:" + top + "px;height:30pt;line-height:30pt;color:white;text-shadow:" + txtshadow + ";text-align:center;",{
         innerText:txt,
-    },EDAll);
+    },TextDOM);
 }
 
 
@@ -59,9 +61,11 @@ let StatText = `
     <div>FAMILY</div>
 `;
 let GuessedPlants = new Set();
+let GuessingListDOM = NewEle(`GuessingListDOM`, 'div', 'width:100%;height:100%;position:absolute;left:0;top:0;', {
+}, EDAll);
 let GuessingList = NewEle(`dFlexWrap_PvZ2DleGuessBox`, 'div', 'opacity:0;', {
     className: 'dFlexWrap_PvZ2DleGuessBox',
-}, EDAll);
+}, GuessingListDOM);
 let AnswerBox = NewEle("AnswerBox","input","position:absolute;top:100px;left:25%;z-index:1000;width: 50%;height: 30px;font-size: 20px;text-rendering: optimizeSpeed;user-select:all;margin:0px;",{
     placeholder:"Type in a plant's name",
 },EDAll);
@@ -189,9 +193,9 @@ NewEle(`AlmanacButton`, 'div', `background: url(images/Almanac_Button.png) no-re
     className: "Button",
     onclick: () => {
         let rulesShade = NewEle("rulesShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:1008;background:rgba(0,0,0,0.8);",{},EDAll);
-        let RulesBoard = NewEle("RulesBoard","center","position:absolute;left:10%;background-position-x:center;width:80%;height:100vh;overflow:auto;background-size:100% 100%;background-image:url(images/TutorialBoard.webp);background-repeat:no-repeat;",{
+        let RulesBoard = NewEle("RulesBoard","center","position:absolute;left:10%;background-position-x:center;width:80%;height:90vh;overflow:auto;background-size:100% 100%;background-image:url(images/TutorialBoard.webp);background-repeat:no-repeat;",{
         },rulesShade);
-        let TheRules = NewEle("PvZ2DleRules","center","position:absolute;left:10%;top:22%;background-position-x:center;width:80%;height:73vh;overflow:auto;",{
+        let TheRules = NewEle("PvZ2DleRules","center","position:absolute;left:10%;top:20%;background-position-x:center;width:80%;height:66vh;overflow:auto;",{
         },rulesShade);
         let tutorialTitle = NewEle("tutorialTitle","center",`color:white;position:absolute;font-size:5vw;width:100%;top:1.5%;`,{
             innerText: "Welcome to PvZ2Dle!"
