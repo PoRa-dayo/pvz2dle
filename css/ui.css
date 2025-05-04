@@ -35,16 +35,45 @@
     top: 160px;
     height: 60%;
     width: 80%;
-    padding-top: 8px;
+    padding-top: 4px;
     background-color: beige;
     align-content: start;
     max-width: 1030px;
 }
 
+.dFlexWrap_PvZ2DleGuessBox_Mobile > * {
+    border: 2px solid rgb(96 139 168);
+    border-radius: 5px;
+    font-size:15px;
+    height:45px;
+    text-align:center;
+    width: 70px;
+    flex: 0 0 auto;
+    background-color: lightblue;
+}
+
+.dFlexWrap_PvZ2DleGuessBox_Mobile {
+    border: 2px dotted rgb(96 139 168);
+    display: grid;
+    grid-template-columns: repeat(9, 70px);
+    gap: 4px;
+    position: relative;
+    overflow: auto;
+    margin: auto;
+    z-index:1000;
+    top: 160px;
+    height: 60%;
+    width: 80%;
+    padding-top: 4px;
+    background-color: beige;
+    align-content: start;
+    max-width: 675px;
+}
+
 .dFlexWrap_PvZ2DleItem > * {
     border: 2px solid rgb(96 139 168);
     border-radius: 5px;
-    font-size:20px;
+    font-size:18px;
     height:45px;
     text-align:center;
     width: 110px;
@@ -66,7 +95,37 @@
     height: 70%;
     width: 81%;
     max-width: 1030px;
-    padding-top: 8px;
+    padding-top: 4px;
+    align-content: start;
+    background: rgba(0,0,0,0.8);
+}
+
+.dFlexWrap_PvZ2DleItem_Mobile > * {
+    border: 2px solid rgb(96 139 168);
+    border-radius: 5px;
+    font-size:15px;
+    height:45px;
+    text-align:center;
+    width: 70px;
+    flex: 0 0 auto;
+    padding-top:5px;
+    position:relative;
+    background-color: lightblue;
+}
+
+.dFlexWrap_PvZ2DleItem_Mobile {
+    border: 2px dotted rgb(96 139 168);
+    display: grid;
+    grid-template-columns: repeat(9, 70px);
+    gap: 4.5px;
+    position: relative;
+    overflow: auto;
+    margin: auto;
+    top: 160px;
+    height: 70%;
+    width: 81%;
+    max-width: 675px;
+    padding-top: 4px;
     align-content: start;
     background: rgba(0,0,0,0.8);
 }

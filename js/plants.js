@@ -388,7 +388,7 @@ const oAKEE = {
     CodeName: "oAKEE",
     EngName: "A.K.E.E.",
     SunNum: 175,
-    Attack: "Variable",
+    Attack: "Normal",
     World: "Lost City",
     Recharge: "Fast",
     RangeArea: "Lobbed",
