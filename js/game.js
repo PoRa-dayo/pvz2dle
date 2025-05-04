@@ -99,12 +99,21 @@ let GuessedPlants = new Set();
 let GuessResults = {};
 let GuessingListDOM = NewEle(`GuessingListDOM`, 'div', 'width:100%;height:100%;position:absolute;left:0;top:0;opacity:0;pointer-events:none;', {
 }, EDAll);
-let GuessingList = NewEle(`dFlexWrap_PvZ2DleGuessBox`, 'div', '', {
+let GuessingList = NewEle(`dFlexWrap_PvZ2DleGuessBox`, 'div', 'z-index:900;', {
     className: IsMobile ? 'dFlexWrap_PvZ2DleGuessBox_Mobile' : 'dFlexWrap_PvZ2DleGuessBox',
 }, GuessingListDOM);
 let AnswerBox = NewEle("AnswerBox","input","position:absolute;top:100px;left:25%;z-index:1000;width: 50%;height: 30px;font-size: 20px;text-rendering: optimizeSpeed;user-select:all;margin:0px;",{
     placeholder:"Type in a plant's name",
 },EDAll);
+let searchShade = NewEle("searchShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:500;background:rgba(0,0,0,0.5);display:none;",{},EDAll);
+let ReturnButton = NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
+    className: "Button",
+    onclick: () => {
+        GuessingListDOM.style.opacity = 0;
+        GuessingListDOM.style.pointerEvents = "none";
+        SetNone(searchShade);
+    }
+}, searchShade);
 AnswerBox.oninput = () => {
     if (AnswerBox.value.length > 0) {
         let Ans = AnswerBox.value.toLowerCase();
@@ -130,6 +139,7 @@ AnswerBox.oninput = () => {
             GuessingListDOM.style.opacity = 1;
             GuessingListDOM.style.pointerEvents = "auto";
             GuessingList.innerHTML = StatText;
+            SetBlock(searchShade);
             for (let plName of plantList) {
                 let plantObj = AllPlantNames[plName];
                 NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
@@ -147,6 +157,7 @@ AnswerBox.oninput = () => {
             GuessingListDOM.style.opacity = 1;
             GuessingListDOM.style.pointerEvents = "auto";
             GuessingList.innerHTML = StatText;
+            SetBlock(searchShade);
             for (let plName of worldList) {
                 let plantObj = AllPlantNames[plName];
                 NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
@@ -164,6 +175,7 @@ AnswerBox.oninput = () => {
             GuessingListDOM.style.opacity = 1;
             GuessingListDOM.style.pointerEvents = "auto";
             GuessingList.innerHTML = StatText;
+            SetBlock(searchShade);
             for (let plName of familyList) {
                 let plantObj = AllPlantNames[plName];
                 NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
@@ -181,11 +193,13 @@ AnswerBox.oninput = () => {
             GuessingList.innerHTML = "";
             GuessingListDOM.style.opacity = 0;
             GuessingListDOM.style.pointerEvents = "none";
+            SetNone(searchShade);
         }
     } else {
         GuessingList.innerHTML = "";
         GuessingListDOM.style.opacity = 0;
         GuessingListDOM.style.pointerEvents = "none";
+        SetNone(searchShade);
     }
 }
 
@@ -247,7 +261,7 @@ function AddGuess(plantName) {
                     SunNum: { diff: 50, list: null },
                     Damage: { diff: 2, list: DamageList },
                     Recharge: { diff: 2, list: RechargeList },
-                    World: { diff: 2, list: WorldList },
+                    World: { diff: 3, list: WorldList },
                     Family: { diff: 3, list: FamilyList }
                 };
 
@@ -392,7 +406,7 @@ if (localStorage.CurrentGameMode === "Daily") {
     SwitchToStreakHunt();
 }
 
-let DailyChallengeButton = NewEle(`DailyChallengeButton`, 'div', `background: url(images/Blue_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:1000;display:${GameMode === "Streak" ? "block" : "none"}`, {
+let DailyChallengeButton = NewEle(`DailyChallengeButton`, 'div', `background: url(images/Blue_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Streak" ? "block" : "none"}`, {
     className: "Button",
     innerText: "ENTER DAILY CHALLENGE MODE",
     onclick: () => {
@@ -401,7 +415,7 @@ let DailyChallengeButton = NewEle(`DailyChallengeButton`, 'div', `background: ur
         SwitchToDailyChallenge();
     }
 }, EDAll);
-let StreakHuntButton = NewEle(`StreakHuntButton`, 'div', `background: url(images/Gold_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:1000;display:${GameMode === "Daily" ? "block" : "none"}`, {
+let StreakHuntButton = NewEle(`StreakHuntButton`, 'div', `background: url(images/Gold_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Daily" ? "block" : "none"}`, {
     className: "Button",
     innerText: "ENTER STREAK HUNT MODE",
     onclick: () => {
