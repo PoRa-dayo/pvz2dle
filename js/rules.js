@@ -1,7 +1,9 @@
 "use strict";
-NewEle(`AlmanacButton`, 'div', `background: url(images/Almanac_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
+let AlmanacButton = NewEle(`AlmanacButton`, 'div', `background: url(images/Almanac_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;${sessionStorage["CheckedRules"]?"":"animation: ButtonBlink 1s infinite"}`, {
     className: "Button",
     onclick: () => {
+        sessionStorage.setItem("CheckedRules","1");
+        AlmanacButton.style.animation="";
         let rulesShade = NewEle("rulesShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:1008;background:rgba(0,0,0,0.8);",{},EDAll);
         let RulesBoard = NewEle("RulesBoard","center","position:absolute;left:10%;background-position-x:center;width:80%;height:90vh;overflow:auto;background-size:100% 100%;background-image:url(images/TutorialBoard.webp);background-repeat:no-repeat;",{
         },rulesShade);

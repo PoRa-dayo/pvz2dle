@@ -217,7 +217,8 @@ function findCommonConsecutiveLetters(str1, str2) {
     for (let len = 3; len <= Math.min(str1.length, str2.length); len++) {
         for (let i = 0; i <= str1.length - len; i++) {
             const substring = str1.substring(i, i + len);
-            if (str2.includes(substring)) {
+            //the substring must not contain spaces
+            if (str2.includes(substring) && !/ /.test(substring)) {
                 return true;
             }
         }
@@ -304,6 +305,7 @@ function AddGuess(plantName) {
         }
         if (GameMode === "Daily") {
             localStorage.setItem("FinalResult","Won");
+            sessionStorage.removeItem("CheckedShare");
             setTimeout(() => {
                 SetBlock($("ShareButton"));
             },10);
@@ -326,6 +328,7 @@ function AddGuess(plantName) {
         SetNone(AnswerBox);
         SetBlock($("judgmentText"));
         $("judgmentText").innerHTML = "No more guesses... " + (GameMode === "Daily" ? "Today" : "This round") + "'s plant is: " + TodaysPlant.EngName;
+        sessionStorage.removeItem("CheckedShare");
         setTimeout(() => {
             SetBlock($("ShareButton"));
         },10);

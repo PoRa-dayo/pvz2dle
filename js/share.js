@@ -1,7 +1,9 @@
 "use strict";
-NewEle(`ShareButton`, 'div', `background: url(images/Share_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;right:0px;width:60px;height:60px;display:none;`, {
+let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;right:0px;width:60px;height:60px;display:none;${sessionStorage["CheckedShare"]?"":"animation: ButtonBlink 1s infinite"}`, {
     className: "Button",
     onclick: () => {
+        sessionStorage.setItem("CheckedShare","1");
+        ShareButton.style.animation="";
         let shareShade = NewEle("shareShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:1008;background:rgba(0,0,0,0.8);",{},EDAll);
         let shareBoard = NewEle("shareBoard","center","position:absolute;left:10%;background-position-x:center;width:80%;height:90vh;overflow:auto;background-size:100% 100%;background-image:url(images/TutorialBoard.webp);background-repeat:no-repeat;",{
         },shareShade);
@@ -83,6 +85,10 @@ NewEle(`ShareButton`, 'div', `background: url(images/Share_Button.png) no-repeat
             "I feel like a new Flag Zombie video.",
             "I feel like shit's truly gone wild...",
             "I feel like bad game design!",
+            "I feel like I'm gonna make an announcement.",
+            "I feel like a bad apple is gonna fall on my head.",
+            "I feel like Sussus Amogus.",
+            "I feel like I see Hatsune Miku at the end of the horizon.",
             "I feel like a new ELM update!",
             "I feel like Bonus Balls!",
             "I feel like jumpscaring PvZ fans with an anime girl!",

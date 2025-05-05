@@ -140,3 +140,10 @@
 .Button:active {
     filter:brightness(90%);
 }
+a:-webkit-any-link {
+    color:deepskyblue;
+}
+@keyframes ButtonBlink{
+    50%{filter:brightness(200%);}
+    100%{filter:brightness(100%);}
+}
