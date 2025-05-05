@@ -235,6 +235,7 @@ function AddGuess(plantName) {
     GuessingList.innerHTML = "";
     GuessingListDOM.style.opacity = 0;
     GuessingListDOM.style.pointerEvents = "none";
+    SetNone(searchShade);
     /*PLANT NAME*/
     let plantObj = AllPlantNames[plantName];
     let correct = (plantName === TodaysPlant.EngName);
