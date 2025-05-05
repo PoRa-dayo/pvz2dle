@@ -75,9 +75,8 @@ let FamilyList = {};
     }
 })();
 
-showTxtCenter("TopText", 35,"GUESS TODAY'S PLANT!");
+showTxtCenter("TopText", 35,"GUESS TODAY'S PLANT!",1.5);
 showTxtCenter("judgmentText", 30,"placeholder", 2);
-$("TopText").style.width = "300px";
 SetNone($("judgmentText"));
 let TodaysPlant;
 
@@ -231,6 +230,15 @@ function findCommonConsecutiveLetters(str1, str2) {
 function AddGuess(plantName) {
     GuessedPlants.add(plantName);
     localStorage.setItem((GameMode === "Daily" ? "" : "StreakHunt_") + "GuessedPlants",Array.from(GuessedPlants).join(','));
+    if (GameMode === "Streak") {
+        let NoOfGuesses = localStorage.StreakHunt_GuessedPlants?.length > 0 ? localStorage.StreakHunt_GuessedPlants.split(",").length : 0;
+        let Delta = ((8-Math.min(7,Math.floor(localStorage.StreakHunt_CurrentStreak/20))) - NoOfGuesses);
+        $("TopText").innerHTML = "GUESS ROUND " + localStorage["StreakHunt_CurrentStreak"] + "'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
+    } else {
+        let NoOfGuesses = localStorage.GuessedPlants?.length > 0 ? localStorage.GuessedPlants.split(",").length : 0;
+        let Delta = (8 - NoOfGuesses);
+        $("TopText").innerHTML = "GUESS TODAY'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
+    }
     AnswerBox.value = "";
     GuessingList.innerHTML = "";
     GuessingListDOM.style.opacity = 0;
@@ -286,7 +294,7 @@ function AddGuess(plantName) {
     }
     localStorage.setItem((GameMode === "Daily" ? "" : "StreakHunt_") + "GuessResults",JSON.stringify(GuessResults));
     /*FINAL JUDGMENT*/
-    if (correctCount >= 7) {
+    if (correctCount >= 8) {
         SetNone(AnswerBox);
         SetBlock($("judgmentText"));
         if (GuessedPlants.size <= 1) {
@@ -314,7 +322,7 @@ function AddGuess(plantName) {
             }, EDAll);
         }
 
-    } else if (GuessedPlants.size >= 8) {
+    } else if (GuessedPlants.size >= (GameMode === "Streak" ? 8-Math.min(7,Math.floor(localStorage.StreakHunt_CurrentStreak/20)) : 8)) {
         SetNone(AnswerBox);
         SetBlock($("judgmentText"));
         $("judgmentText").innerHTML = "No more guesses... " + (GameMode === "Daily" ? "Today" : "This round") + "'s plant is: " + TodaysPlant.EngName;
@@ -350,7 +358,9 @@ function SwitchToDailyChallenge() {
     SetNone($("judgmentText"));
     SetNone($("ShareButton"));
     ClearChild($(`ContinueButton`));
-    $("TopText").innerHTML = "GUESS TODAY'S PLANT!";
+    let NoOfGuesses = localStorage.GuessedPlants?.length > 0 ? localStorage.GuessedPlants.split(",").length : 0;
+    let Delta = (8 - NoOfGuesses);
+    $("TopText").innerHTML = "GUESS TODAY'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
     /*TODAY'S PLANT!!!*/
     Math.seedV2 = [DateValue,DateValue2];
     TodaysPlant = AllPlants[Math.floor(Math.seededRandomV2(AllPlantsLen-1,0))];
@@ -377,7 +387,10 @@ function SwitchToStreakHunt() {
     SetNone($("judgmentText"));
     SetNone($("ShareButton"));
     ClearChild($(`ContinueButton`));
-    $("TopText").innerHTML = "GUESS ROUND " + localStorage["StreakHunt_CurrentStreak"] + "'S PLANT!";
+    if (!localStorage.StreakHunt_CurrentStreak) localStorage.StreakHunt_CurrentStreak = "1";
+    let NoOfGuesses = localStorage.StreakHunt_GuessedPlants?.length > 0 ? localStorage.StreakHunt_GuessedPlants.split(",").length : 0;
+    let Delta = ((8-Math.min(7,Math.floor(localStorage.StreakHunt_CurrentStreak/20))) - NoOfGuesses);
+    $("TopText").innerHTML = "GUESS ROUND " + localStorage["StreakHunt_CurrentStreak"] + "'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
     if (!localStorage.StreakHunt_attemptSeed) {
         let number = '';
         number += Math.floor(Math.random() * 9 + 1);
