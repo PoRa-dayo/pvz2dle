@@ -295,7 +295,7 @@ const oGoldBloom = {
     Recharge: "Very Slow",
     RangeArea: null,
     Special: null,
-    Usage: "Sun (Burst)",
+    Usage: "Sun (Burst), Single, Instant",
     Family: "Enlighten-mint",
 };
 const oElectricCurrant = {
