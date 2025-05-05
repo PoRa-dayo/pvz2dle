@@ -114,7 +114,7 @@ let ReturnButton = NewEle(`ReturnButton`, 'div', `background: url(images/Return_
         SetNone(searchShade);
     }
 }, searchShade);
-AnswerBox.oninput = () => {
+AnswerBox.oninput = AnswerBox.onfocus = () => {
     if (AnswerBox.value.length > 0) {
         let Ans = AnswerBox.value.toLowerCase();
         let plantList = [], worldList = [], familyList = [];
