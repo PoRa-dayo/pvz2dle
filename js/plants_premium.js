@@ -7,7 +7,7 @@ const oSnowPea = {
     Recharge: "Mediocre",
     RangeArea: "Straight",
     Special: "Chill",
-    Usage: "Single",
+    Usage: null,
     Family: "Winter-mint",
 };
 const oPowerLily = {
@@ -31,7 +31,7 @@ const oSquash = {
     Recharge: "Sluggish",
     RangeArea: "Close",
     Special: "Zombies Smashed",
-    Usage: "Single",
+    Usage: "Single, On Contact",
     Family: "Enforce-mint",
 };
 const oJalapeno = {
@@ -65,8 +65,8 @@ const oHypnoShroom = {
     Attack: null,
     World: "Gemium",
     Recharge: "Mediocre",
-    RangeArea: "Single",
-    Special: null,
+    RangeArea: "Touch, Single",
+    Special: "Hypnotize Zombie",
     Usage: "On Eaten",
     Family: "Enchant-mint",
 };
@@ -173,9 +173,9 @@ const oLavaGuava = {
     Attack: "Heavy",
     World: "Gemium",
     Recharge: "Mediocre",
-    RangeArea: "Touch",
+    RangeArea: "Touch, 3x3, Tile",
     Special: "Warming",
-    Usage: "Single, Instant",
+    Usage: "Single, On Contact",
     Family: "Pepper-mint",
 };
 const oToadstool = {
@@ -209,8 +209,8 @@ const oCactus = {
     Attack: "Normal",
     World: "Premium",
     Recharge: "Fast",
-    RangeArea: "Multi-Hit",
-    Special: "Spike Damage",
+    RangeArea: "Multi-Hit, Straight Ahead",
+    Special: "Spike Mode",
     Usage: null,
     Family: "Spear-mint",
 };
@@ -222,7 +222,7 @@ const oElectricBlueberry = {
     World: "Premium",
     Recharge: "Very Slow",
     RangeArea: "Full Board",
-    Special: "Target Stronger Zombie",
+    Special: "Target Priority",
     Usage: null,
     Family: "Fila-mint",
 };
@@ -230,11 +230,11 @@ const oJackOLantern = {
     CodeName: "oJackOLantern",
     EngName: "Jack O' Lantern",
     SunNum: 225,
-    Attack: "Heavy",
+    Attack: "Extensive",
     World: "Premium",
     Recharge: "Sluggish",
-    RangeArea: "3 Tiles",
-    Special: null,
+    RangeArea: "3 Tiles Ahead",
+    Special: "Warming",
     Usage: null,
     Family: "Pepper-mint",
 };
@@ -341,7 +341,7 @@ const oAppleMortar = {
     Attack: "Moderate",
     World: "Premium",
     Recharge: "Mediocre",
-    RangeArea: "Multi-Lane",
+    RangeArea: "Lobbed, Multi-Lane (3 Lanes)",
     Special: "Stun",
     Usage: null,
     Family: "Arma-mint",
@@ -350,7 +350,7 @@ const oWitchHazel = {
     CodeName: "oWitchHazel",
     EngName: "Witch Hazel",
     SunNum: 200,
-    Attack: "Heavy",
+    Attack: "Massive",
     World: "Premium",
     Recharge: "Sluggish",
     RangeArea: "Full Board",
@@ -374,7 +374,7 @@ const oMissileToe = {
     CodeName: "oMissileToe",
     EngName: "Missile Toe",
     SunNum: 500,
-    Attack: "Heavy",
+    Attack: "Massive",
     World: "Premium",
     Recharge: "Fast",
     RangeArea: "Tile",
@@ -390,7 +390,7 @@ const oCaulipower = {
     World: "Premium",
     Recharge: "Very Slow",
     RangeArea: "Full Board",
-    Special: "Target Stronger Zombie",
+    Special: "Target Priority, Hypnotize Zombie",
     Usage: null,
     Family: "Enchant-mint",
 };
@@ -414,7 +414,7 @@ const oHollyBarrier = {
     World: "Premium",
     Recharge: "Fast",
     RangeArea: "Touch, 3x3",
-    Special: "Knockback, Barrier",
+    Special: "Knockback, Spawn Barrier",
     Usage: "Tap to Aim, Wall (Elevated)",
     Family: "Reinforce-mint",
 };

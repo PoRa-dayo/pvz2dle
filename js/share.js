@@ -1,13 +1,14 @@
 "use strict";
-let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;right:0px;width:60px;height:60px;display:none;${sessionStorage["CheckedShare"]?"":"animation: ButtonBlink 1s infinite"}`, {
+let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;right:0px;width:${IsMobile?50:60}px;height:${IsMobile?50:60}px;display:none;${sessionStorage["CheckedShare"]?"":"animation: ButtonBlink 1s infinite"}`, {
     className: "Button",
     onclick: () => {
         sessionStorage.setItem("CheckedShare","1");
         ShareButton.style.animation="";
         let shareShade = NewEle("shareShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:1008;background:rgba(0,0,0,0.8);",{},EDAll);
-        let shareBoard = NewEle("shareBoard","center","position:absolute;left:10%;background-position-x:center;width:80%;height:90vh;overflow:auto;background-size:100% 100%;background-image:url(images/TutorialBoard.webp);background-repeat:no-repeat;",{
+        let shareBoard = NewEle("shareBoard","center","position:absolute;left:10%;background-position-x:center;width:80%;height:90vh;overflow:auto;background-size:100% 100%;background-image:url(images/TutorialBoard.webp);background-repeat:no-repeat;animation:descendBoard 0.3s ease-out 1;",{
         },shareShade);
-        let TheShare = NewEle("PvZ2DleShare","center","position:absolute;left:10%;top:20%;background-position-x:center;width:80%;height:66vh;overflow:auto;",{
+        let TheShare = NewEle("PvZ2DleShare","center","position:absolute;left:10%;top:20%;background-position-x:center;width:80%;height:66vh;overflow:auto;animation:descendBoardContent 0.3s ease-out 1;",{
+            className: "CustomScroll",
         },shareShade);
         let tutorialTitle = NewEle("tutorialTitle","center",`color:white;position:absolute;font-size:2em;width:100%;top:1.5%;`,{
             innerText: "Share your " + (localStorage.FinalResult === "Won" ? "victory!" : "attempt!"),
@@ -91,6 +92,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
             "I feel like I see Hatsune Miku at the end of the horizon.",
             "I feel like a new ELM update!",
             "I feel like Bonus Balls!",
+            "I feel like that was the guess of '87.",
             "I feel like jumpscaring PvZ fans with an anime girl!",
             "I feel like spending 10 hours at PvZ Brutal EX Plus Hard Mode Total Death Edition.",
             "I feel like making a clickbait video with Stardrop's meteors.",
@@ -100,7 +102,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
             IntroShareStr += " This is what ended my run:";
         }
         let FinalStr = IntroShareStr + `<br/>` +  ResultStr + `Play PvZ2Dle here:<br/>https://pora-dayo.github.io/pvz2dle/`;
-        NewEle(`CopyButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;left:0px;width:150px;height:100px;font-size:25px;padding-top:65px;`, {
+        NewEle(`CopyButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;left:0px;width:150px;height:67px;font-size:25px;padding-top:35px;`, {
             className: "Button",
             innerText: "SHARE",
             onclick: () => {
@@ -112,10 +114,46 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                 });
             }
         }, TheShare);
+        if (/Won|Lost/.test(localStorage.FinalResult)) {
+            let tutorialTxt3 = NewEle("tutorialTxt3", "center", `color:white;position:relative;font-size:22px;width:75%;display:inline-block;`, {
+                innerHTML: `Next challenge in:`,
+            }, TheShare);
+            tutorialTxt3.style.textShadow = txtshadow;
+            let today = new Date();
+            let tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            let countDownDate = tomorrow.getTime();
+
+            // Update the count down every 1 second
+            let x = setInterval(function () {
+
+                // Get today's date and time
+                let now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                let distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result
+                tutorialTxt3.innerHTML = `Next challenge in:<br/>` + hours + "h "
+                    + minutes + "m " + seconds + "s ";
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    location.reload();
+                }
+            }, 1000);
+        }
         NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
             className: "Button",
             onclick: () => {
-                ClearChild(shareShade);
+                oEffects.fadeOut(shareShade,"fast",ClearChild);
             }
         }, shareShade);
     }

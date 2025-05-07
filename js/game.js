@@ -1,5 +1,6 @@
 "use strict";
 const EDAll = $("dAll");
+let CurrentExpansionVer = "2";
 let GameMode;
 if (localStorage.CurrentGameMode) {
     GameMode = localStorage.CurrentGameMode;
@@ -10,6 +11,10 @@ if (localStorage.CurrentGameMode) {
 if (!localStorage["StreakHunt_CurrentStreak"]) {
     localStorage["StreakHunt_CurrentStreak"] = "1";
 }
+["TotalGuesses", "StreakHunt_TotalGuesses", "TotalWins", "StreakHunt_TotalWins", "StreakHunt_HighestStreak"]
+    .forEach(key => {
+        if (!localStorage[key]) localStorage[key] = "0";
+    });
 const TextDOM = NewEle(`TextDOM`, 'div', 'width:100%;height:100%;position:absolute;left:0;top:0;', {
 }, EDAll);
 const txtshadow = "rgb(0 0 0) 2px 0px 0px, rgb(0 0 0) 1.75517px 0.958851px 0px, rgb(0 0 0) 1.0806px 1.68294px 0px, rgb(0 0 0) 0.141474px 1.99499px 0px, rgb(0 0 0) -0.832294px 1.81859px 0px, rgb(0 0 0) -1.60229px 1.19694px 0px, rgb(0 0 0) -1.97998px 0.28224px 0px, rgb(0 0 0) -1.87291px -0.701566px 0px, rgb(0 0 0) -1.30729px -1.5136px 0px, rgb(0 0 0) -0.421592px -1.95506px 0px, rgb(0 0 0) 0.567324px -1.91785px 0px, rgb(0 0 0) 1.41734px -1.41108px 0px, rgb(0 0 0) 1.92034px -0.558831px 0px";
@@ -25,13 +30,17 @@ function showTxt(id, top, txt, left=35, size = 2){
 let DateInt = new Date(),
     DateValue = DateInt.getDate()+(DateInt.getMonth()+1)*100+DateInt.getFullYear()*10000,
     DateValue2 = Math.floor(((Math.abs(DateInt.getDate()*(DateInt.getMonth()+1)-DateInt.getFullYear())/DateValue)+DateInt.getDay())*Math.sqrt(DateValue));
-if (DateValue+"" !== localStorage.DateLastPlayed) {
+if (DateValue+"" !== localStorage.DateLastPlayed || !localStorage.ExpansionVer || localStorage.ExpansionVer !== CurrentExpansionVer) {
     localStorage.removeItem("DateLastPlayed");
     localStorage.removeItem("GuessedPlants");
     localStorage.removeItem("GuessResults");
     localStorage.setItem("DateLastPlayed", DateValue+"");
     console.log("reset");
 }
+if (!localStorage.ExpansionVer || localStorage.ExpansionVer !== CurrentExpansionVer) {
+    localStorage.removeItem("CheckedNews");
+}
+localStorage.ExpansionVer = CurrentExpansionVer;
 if (!localStorage.userSeed) {
     let number = '';
     number += Math.floor(Math.random() * 9 + 1);
@@ -53,7 +62,7 @@ AllPlantNames = json;
 /*--PLANT LIST END--*/
 
 /*--STAT LIST START--*/
-const DamageList = {"Light": 0, "Normal": 1, "Moderate": 2, "Heavy": 3, "Massive": 4};
+const DamageList = {"Light": 0, "Normal": 1, "Moderate": 2, "Heavy": 3, "Extensive": 4, "Huge": 5, "Massive": 6};
 const RechargeList = {"Fast": 0, "Mediocre": 1, "Sluggish": 2, "Slow": 3, "Very Slow": 4};
 let WorldArr = ["Player's House","Ancient Egypt","Pirate Seas","Wild West","Frostbite Caves","Lost City","Far Future","Dark Ages","Neon Mixtape Tour","Jurassic Marsh","Big Wave Beach","Modern Day","Gemium","Premium","Seedium","Power Mints"];
 let FamilyArr = ["Contain-mint","Conceal-mint","Enchant-mint","Enlighten-mint","Enforce-mint","Appease-mint","Arma-mint","Spear-mint","Reinforce-mint","Bombard-mint","Winter-mint","Pepper-mint","Fila-mint","Ail-mint"]
@@ -75,34 +84,39 @@ let FamilyList = {};
     }
 })();
 
-showTxtCenter("TopText", 35,"GUESS TODAY'S PLANT!",1.5);
+showTxtCenter("TopText", 45,"GUESS TODAY'S PLANT!",1.5);
 showTxtCenter("judgmentText", 30,"placeholder", 2);
 SetNone($("judgmentText"));
 let TodaysPlant;
 
 const StatList = ["SunNum", "World", "Attack", "Recharge", "RangeArea", "Usage", "Special", "Family"];
 let StatText = `
-    <div>NAME</div>
-    <div>SUN COST</div>
-    <div>WORLD</div>
-    <div>DAMAGE</div>
-    <div>RECHARGE</div>
-    <div>RANGE/AREA</div>
-    <div>USAGE</div>
-    <div>SPECIAL</div>
-    <div>FAMILY</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Name.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> NAME</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Sun_Cost.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> SUN COST</div>
+    <div class="dGreenTop"><img src="images/StatTitles/World.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> WORLD</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Damage.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> DAMAGE</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Recharge.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> RECHARGE</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Area.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> RANGE/AREA</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Usage.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> USAGE</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Special.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> SPECIAL</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Family.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> FAMILY</div>
 `;
+let StatTextSimple = StatText.replaceAll('dGreenTop', 'dGreenTop_Simple');
 
 /*THE ANSWER BOX AND THE GUESSING LIST THAT SHOWS UP WHEN YOU PUT IN A PLANT'S NAME*/
 let GuessedPlants = new Set();
 let GuessResults = {};
+let GuessedStats = {};
+for (let stat of StatList) {
+    GuessedStats[stat] = {};
+}
 let GuessingListDOM = NewEle(`GuessingListDOM`, 'div', 'width:100%;height:100%;position:absolute;left:0;top:0;opacity:0;pointer-events:none;', {
 }, EDAll);
 let GuessingList = NewEle(`dFlexWrap_PvZ2DleGuessBox`, 'div', 'z-index:900;', {
     className: IsMobile ? 'dFlexWrap_PvZ2DleGuessBox_Mobile' : 'dFlexWrap_PvZ2DleGuessBox',
 }, GuessingListDOM);
-let AnswerBox = NewEle("AnswerBox","input","position:absolute;top:100px;left:25%;z-index:1000;width: 50%;height: 30px;font-size: 20px;text-rendering: optimizeSpeed;user-select:all;margin:0px;",{
-    placeholder:"Type in a plant's name",
+let AnswerBox = NewEle("AnswerBox","input","position:absolute;top:100px;left:25%;z-index:1000;width: 50%;height: 30px;font-size: 18px;text-rendering: optimizeSpeed;user-select:all;margin:0px;pointer-events:none;background-color:grey",{
+    placeholder:"Plant's Name/World/Family",
 },EDAll);
 let searchShade = NewEle("searchShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:500;background:rgba(0,0,0,0.5);display:none;",{},EDAll);
 let ReturnButton = NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
@@ -114,9 +128,11 @@ let ReturnButton = NewEle(`ReturnButton`, 'div', `background: url(images/Return_
     }
 }, searchShade);
 AnswerBox.oninput = AnswerBox.onfocus = () => {
+    /*JUDGE THE ANSWER AND ADD THE PLANTS TO THE SEARCH RESULTS, AS WELL AS SHOW OR HIDE THE SEARCH RESULT BOX ACCORDINGLY*/
     if (AnswerBox.value.length > 0) {
         let Ans = AnswerBox.value.toLowerCase();
         let plantList = [], worldList = [], familyList = [];
+        let OopsAllMints = true;
         for (let plant of AllPlants) {
             let plantName = plant.EngName;
             let plantWorld = plant.World.toLowerCase();
@@ -125,66 +141,90 @@ AnswerBox.oninput = AnswerBox.onfocus = () => {
             if (!GuessedPlants.has(plantName)) {
                 if (LowerPlantName.startsWith(Ans)) {
                     plantList.push(plantName);
+                    if (!/-mint/.test(plantName)) {
+                        OopsAllMints = false;
+                    }
                 }
                 if (plantWorld.startsWith(Ans)) {
                     worldList.push(plantName);
+                    if (!/-mint/.test(plantName)) {
+                        OopsAllMints = false;
+                    }
                 }
                 if (plantFamily.startsWith(Ans)) {
                     familyList.push(plantName);
                 }
             }
         }
-        if (plantList.length > 0) {
+        if (plantList.length > 0 && !OopsAllMints) {
             GuessingListDOM.style.opacity = 1;
             GuessingListDOM.style.pointerEvents = "auto";
-            GuessingList.innerHTML = StatText;
+            GuessingList.innerHTML = StatTextSimple;
             SetBlock(searchShade);
             for (let plName of plantList) {
                 let plantObj = AllPlantNames[plName];
-                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
-                    innerText: plName,
-                    onclick: () => {AddGuess(plantObj.EngName)}
+                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;', {
+                    innerHTML: `<img src="images/Name/${plName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` + plName,
+                    className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
+                    onclick: () => {AddGuess(plantObj.EngName, true)}
                 }, GuessingList);
                 for (let stat of StatList) {
-                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;height:60px;', {
-                        innerText: plantObj[stat] ?? "No",
-                        onclick: () => {AddGuess(plantObj.EngName)}
+                    let BGcolor = "lightblue", TheGuessedStat = GuessedStats[stat][plantObj[stat] ?? "No"];
+                    if (!isNullish(TheGuessedStat)){
+                        BGcolor = (TheGuessedStat === 0 ? "F8657B" : (TheGuessedStat === 1 ? "67D898" : "E0C584"));
+                    }
+                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', "cursor:pointer;background-color:#" + BGcolor, {
+                        innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` : ``) + (plantObj[stat] ?? "No"),
+                        className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
+                        onclick: () => {AddGuess(plantObj.EngName, true)}
                     }, GuessingList);
                 }
             }
         } else if (worldList.length > 0) {
             GuessingListDOM.style.opacity = 1;
             GuessingListDOM.style.pointerEvents = "auto";
-            GuessingList.innerHTML = StatText;
+            GuessingList.innerHTML = StatTextSimple;
             SetBlock(searchShade);
             for (let plName of worldList) {
                 let plantObj = AllPlantNames[plName];
-                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
-                    innerText: plName,
-                    onclick: () => {AddGuess(plantObj.EngName)}
+                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;', {
+                    innerHTML: `<img src="images/Name/${plName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` + plName,
+                    className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
+                    onclick: () => {AddGuess(plantObj.EngName, true)}
                 }, GuessingList);
                 for (let stat of StatList) {
-                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;height:60px;', {
-                        innerText: plantObj[stat] ?? "No",
-                        onclick: () => {AddGuess(plantObj.EngName)}
+                    let BGcolor = "lightblue", TheGuessedStat = GuessedStats[stat][plantObj[stat] ?? "No"];
+                    if (!isNullish(TheGuessedStat)){
+                        BGcolor = (TheGuessedStat === 0 ? "F8657B" : (TheGuessedStat === 1 ? "67D898" : "E0C584"));
+                    }
+                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;background-color:#' + BGcolor, {
+                        innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` : ``) + (plantObj[stat] ?? "No"),
+                        className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
+                        onclick: () => {AddGuess(plantObj.EngName, true)}
                     }, GuessingList);
                 }
             }
         } else if (familyList.length > 0) {
             GuessingListDOM.style.opacity = 1;
             GuessingListDOM.style.pointerEvents = "auto";
-            GuessingList.innerHTML = StatText;
+            GuessingList.innerHTML = StatTextSimple;
             SetBlock(searchShade);
             for (let plName of familyList) {
                 let plantObj = AllPlantNames[plName];
-                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;height:60px;', {
-                    innerText: plName,
-                    onclick: () => {AddGuess(plantObj.EngName)}
+                NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;', {
+                    innerHTML: `<img src="images/Name/${plName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` + plName,
+                    className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
+                    onclick: () => {AddGuess(plantObj.EngName, true)}
                 }, GuessingList);
                 for (let stat of StatList) {
-                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;height:60px;', {
-                        innerText: plantObj[stat] ?? "No",
-                        onclick: () => {AddGuess(plantObj.EngName)}
+                    let BGcolor = "lightblue", TheGuessedStat = GuessedStats[stat][plantObj[stat] ?? "No"];
+                    if (!isNullish(TheGuessedStat)){
+                        BGcolor = (TheGuessedStat === 0 ? "F8657B" : (TheGuessedStat === 1 ? "67D898" : "E0C584"));
+                    }
+                    NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;background-color:#' + BGcolor, {
+                        innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` : ``) + (plantObj[stat] ?? "No"),
+                        className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
+                        onclick: () => {AddGuess(plantObj.EngName, true)}
                     }, GuessingList);
                 }
             }
@@ -210,8 +250,9 @@ let GuessedList = NewEle(`dFlexWrap_PvZ2DleItem`, 'div', '', {
 /*THE FUNCTIONS RELATED TO SUBMITTING A GUESS*/
 function findCommonConsecutiveLetters(str1, str2) {
     // Normalize strings to lowercase to make comparison case-insensitive
-    str1 = (str1 + "").toLowerCase();
-    str2 = (str2 + "").toLowerCase();
+    str1 = ((str1 ?? "No") + "").toLowerCase();
+    str2 = ((str2 ?? "No") + "").toLowerCase();
+    if (str1.length < 3 || str2.length < 3) {return false;}
 
     // Loop through substrings of str1 of length 3 or more
     for (let len = 3; len <= Math.min(str1.length, str2.length); len++) {
@@ -228,9 +269,13 @@ function findCommonConsecutiveLetters(str1, str2) {
 }
 
 
-function AddGuess(plantName) {
+function AddGuess(plantName, manual = false) {
     GuessedPlants.add(plantName);
     localStorage.setItem((GameMode === "Daily" ? "" : "StreakHunt_") + "GuessedPlants",Array.from(GuessedPlants).join(','));
+    if (manual) {
+        let ItemName = (GameMode === "Daily" ? "" : "StreakHunt_") + "TotalGuesses";
+        localStorage.setItem(ItemName,(Number(localStorage[ItemName])+1)+"");
+    }
     if (GameMode === "Streak") {
         let NoOfGuesses = localStorage.StreakHunt_GuessedPlants?.length > 0 ? localStorage.StreakHunt_GuessedPlants.split(",").length : 0;
         let Delta = ((8-Math.min(7,Math.floor(localStorage.StreakHunt_CurrentStreak/20))) - NoOfGuesses);
@@ -249,9 +294,29 @@ function AddGuess(plantName) {
     let plantObj = AllPlantNames[plantName];
     let correct = (plantName === TodaysPlant.EngName);
     let partiallyCorrect = findCommonConsecutiveLetters(plantName, TodaysPlant.EngName);
-    let tem = NewEle(`${plantName}_Name`, 'div', `background-color:${correct ? "green" : (partiallyCorrect ? "yellow" : "red")}; height:60px;`, {
-        innerText: plantName
+    /*----CARD DOM START*/
+    let temCard = NewEle(`${plantName}_Name_Card`, 'div', `top:100px;opacity:0;overflow:hidden;`, {
+        className: "flip-card flip-card-inner card_Normal" + (IsMobile ? "_Mobile" : ""),
     }, GuessedList);
+    let f=NewEle(`${plantName}_Name_f`, 'div', `background-image:url(images/Card_Hidden.png);${IsMobile?"background-size: 70px 86px;":""}`, {
+        className: "flip-card-front",
+    }, temCard);
+    let b=NewEle(`${plantName}_Name_b`, 'div', `background-image:url(images/Card_${correct ? "Green" : (partiallyCorrect ? "Yellow" : "Red")}.png);background-color:#${correct ? "6DDA9D" : (partiallyCorrect ? "DEC37F" : "FA697D")};${IsMobile?"background-size: 70px 86px;":""}`, {
+        innerHTML: `<img src="images/Name/${plantName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` + plantName,
+        className: "flip-card-back",
+    }, temCard);
+    oEffects.Animate(temCard,{
+        "top": "0px",
+        "opacity": "1",
+    },0.4,"ease-out",()=>{
+        oEffects.Animate(f,{
+            "transform": "rotateX(180deg)",
+        },0.4,"ease-out", () => {}, 0.4);
+        oEffects.Animate(b,{
+            "transform": "rotateX(0deg)",
+        },0.4,"ease-out", () => {}, 0.4);
+    });
+    /*----CARD DOM END*/
     GuessResults[plantName] = [];
     GuessResults[plantName][0] = correct ? 1 : (partiallyCorrect ? 2 : 0);
     let correctCount = 0;
@@ -269,7 +334,7 @@ function AddGuess(plantName) {
                 // Note: It checks if the difference is SMALLER than diff, not smaller or equal to diff
                 const statLists = {
                     SunNum: { diff: 50, list: null },
-                    Damage: { diff: 2, list: DamageList },
+                    Attack: { diff: 2, list: DamageList },
                     Recharge: { diff: 2, list: RechargeList },
                     World: { diff: 3, list: WorldList },
                     Family: { diff: 3, list: FamilyList }
@@ -278,20 +343,48 @@ function AddGuess(plantName) {
                 for (const key in statLists) {
                     if (new RegExp(key).test(stat)) {
                         const { diff, list } = statLists[key];
+                        const totalItems = list ? Object.keys(list).length : null;
                         const val1 = list ? list[plantObj[stat]] : Number(plantObj[stat]);
                         const val2 = list ? list[TodaysPlant[stat]] : Number(TodaysPlant[stat]);
+                        let DiffToCompare = Math.abs(val1 - val2);
+                        if (totalItems && DiffToCompare > totalItems/2) {
+                            DiffToCompare = totalItems - DiffToCompare;
+                        }
                         if (val1 != null && val2 != null) {
-                            partiallyCorrect = Math.abs(val1 - val2) < diff;
+                            partiallyCorrect = DiffToCompare < diff;
                         }
                         break;
                     }
                 }
             }
         }
-        let tem = NewEle(`${plantName}_${stat}`, 'div', `background-color:${correct ? "green" : (partiallyCorrect ? "yellow" : "red")}; height:60px;`, {
-            innerText: plantObj[stat] ?? "No"
-        }, GuessedList);
         GuessResults[plantName][++statCount] = correct ? 1 : (partiallyCorrect ? 2 : 0);
+        if (correct || partiallyCorrect) GuessedStats[stat][plantObj[stat] ?? "No"] = correct ? 1 : 2;
+        /*----CARD DOM START*/
+        let temCard = NewEle(`${plantName}_${stat}_Card`, 'div', `top:100px;opacity:0;overflow:hidden;`, {
+            className: "flip-card flip-card-inner card_Normal" + (IsMobile ? "_Mobile" : ""),
+        }, GuessedList);
+        let f=NewEle(`${plantName}_${stat}_f`, 'div', `background-image:url(images/Card_Hidden.png);${IsMobile?"background-size: 70px 86px;":""}`, {
+            className: "flip-card-front",
+        }, temCard);
+        let b=NewEle(`${plantName}_${stat}_b`, 'div', `background-image:url(images/Card_${correct ? "Green" : (partiallyCorrect ? "Yellow" : "Red")}.png);background-color:#${correct ? "6DDA9D" : (partiallyCorrect ? "DEC37F" : "FA697D")};${IsMobile?"background-size: 70px 86px;":""}`, {
+            innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` : ``) + (plantObj[stat] ?? "No"),
+            className: "flip-card-back",
+        }, temCard);
+        setTimeout(() => {
+            oEffects.Animate(temCard, {
+                "top": "0px",
+                "opacity": "1",
+            }, 0.4, "ease-out", () => {
+                oEffects.Animate(f, {
+                    "transform": "rotateX(180deg)",
+                }, 0.4, "ease-out",() => {}, 0.3);
+                oEffects.Animate(b, {
+                    "transform": "rotateX(0deg)",
+                }, 0.4, "ease-out",() => {}, 0.3);
+            });
+        }, statCount*50);
+        /*----CARD DOM END*/
     }
     localStorage.setItem((GameMode === "Daily" ? "" : "StreakHunt_") + "GuessResults",JSON.stringify(GuessResults));
     /*FINAL JUDGMENT*/
@@ -302,6 +395,10 @@ function AddGuess(plantName) {
             $("judgmentText").innerHTML = "What the fuck.";
         } else {
             $("judgmentText").innerHTML = "Congrats! You won in " + GuessedPlants.size + " tries!";
+        }
+        if (manual) {
+            let ItemName = (GameMode === "Daily" ? "" : "StreakHunt_") + "TotalWins";
+            localStorage.setItem(ItemName,(Number(localStorage[ItemName])+1)+"");
         }
         if (GameMode === "Daily") {
             localStorage.setItem("FinalResult","Won");
@@ -327,12 +424,16 @@ function AddGuess(plantName) {
     } else if (GuessedPlants.size >= (GameMode === "Streak" ? 8-Math.min(7,Math.floor(localStorage.StreakHunt_CurrentStreak/20)) : 8)) {
         SetNone(AnswerBox);
         SetBlock($("judgmentText"));
-        $("judgmentText").innerHTML = "No more guesses... " + (GameMode === "Daily" ? "Today" : "This round") + "'s plant is: " + TodaysPlant.EngName;
+        $("judgmentText").innerHTML = "No more guesses... " + (GameMode === "Daily" ? "Today" : "This round") + "'s plant is: " + TodaysPlant.EngName + ` <img src="images/Name/${TodaysPlant.EngName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> `;
         sessionStorage.removeItem("CheckedShare");
         setTimeout(() => {
             SetBlock($("ShareButton"));
         },10);
         if (GameMode === "Streak") {
+            if (manual) {
+                let ItemName = "StreakHunt_HighestStreak";
+                localStorage.setItem(ItemName,Math.max(Number(localStorage[ItemName]),Number(localStorage["StreakHunt_CurrentStreak"]))+"");
+            }
             let ContinueButton = NewEle(`ContinueButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;top:8%;width:150px;height:50px;font-size:25px;text-align:center;padding-top:20px;margin:auto;`, {
                 className: "Button",
                 innerText: "RETRY",
@@ -353,68 +454,80 @@ function AddGuess(plantName) {
 }
 
 function SwitchToDailyChallenge() {
-    GameMode = "Daily";
-    localStorage.CurrentGameMode = GameMode;
-    GuessedPlants.clear();
-    GuessResults = {};
-    SetBlock(AnswerBox);
-    SetNone($("judgmentText"));
-    SetNone($("ShareButton"));
-    ClearChild($(`ContinueButton`));
-    let NoOfGuesses = localStorage.GuessedPlants?.length > 0 ? localStorage.GuessedPlants.split(",").length : 0;
-    let Delta = (8 - NoOfGuesses);
-    $("TopText").innerHTML = "GUESS TODAY'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
-    /*TODAY'S PLANT!!!*/
-    Math.seedV2 = [DateValue,DateValue2];
-    TodaysPlant = AllPlants[Math.floor(Math.seededRandomV2(AllPlantsLen-1,0))];
-    /*TODAY'S PLANT!!!*/
-
-    GuessedList.innerHTML = StatText;
-
-    /*AUTOMATICALLY SUBMIT GUESSES FROM LOCALSTORAGE*/
-    if (localStorage.GuessedPlants) {
-        for (let plantName of localStorage.GuessedPlants.split(",")) {
-            AddGuess(plantName);
+    Transition(1, () => {
+        GameMode = "Daily";
+        localStorage.CurrentGameMode = GameMode;
+        GuessedPlants.clear();
+        GuessResults = {};
+        GuessedStats = {};
+        for (let stat of StatList) {
+            GuessedStats[stat] = {};
         }
-    }
+        SetBlock(AnswerBox);
+        SetNone($("judgmentText"));
+        SetNone($("ShareButton"));
+        ClearChild($(`ContinueButton`));
+        let NoOfGuesses = localStorage.GuessedPlants?.length > 0 ? localStorage.GuessedPlants.split(",").length : 0;
+        let Delta = (8 - NoOfGuesses);
+        $("TopText").innerHTML = "GUESS TODAY'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
+        /*TODAY'S PLANT!!!*/
+        Math.seedV2 = [DateValue, DateValue2];
+        TodaysPlant = AllPlants[Math.floor(Math.seededRandomV2(AllPlantsLen - 1, 0))];
+        /*TODAY'S PLANT!!!*/
+
+        GuessedList.innerHTML = StatText;
+    }, () => {
+        /*AUTOMATICALLY SUBMIT GUESSES FROM LOCALSTORAGE*/
+        if (localStorage.GuessedPlants) {
+            for (let plantName of localStorage.GuessedPlants.split(",")) {
+                AddGuess(plantName);
+            }
+        }
+    }, "DAILY CHALLENGE");
 }
 
 
 /*STREAK HUNT*/
 function SwitchToStreakHunt() {
-    GameMode = "Streak";
-    localStorage.CurrentGameMode = GameMode;
-    GuessedPlants.clear();
-    GuessResults = {};
-    SetBlock(AnswerBox);
-    SetNone($("judgmentText"));
-    SetNone($("ShareButton"));
-    ClearChild($(`ContinueButton`));
-    if (!localStorage.StreakHunt_CurrentStreak) localStorage.StreakHunt_CurrentStreak = "1";
-    let NoOfGuesses = localStorage.StreakHunt_GuessedPlants?.length > 0 ? localStorage.StreakHunt_GuessedPlants.split(",").length : 0;
-    let Delta = ((8-Math.min(7,Math.floor(localStorage.StreakHunt_CurrentStreak/20))) - NoOfGuesses);
-    $("TopText").innerHTML = "GUESS ROUND " + localStorage["StreakHunt_CurrentStreak"] + "'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
-    if (!localStorage.StreakHunt_attemptSeed) {
-        let number = '';
-        number += Math.floor(Math.random() * 9 + 1);
-        for (let i = 1; i < 25; i++) {
-            number += Math.floor(Math.random() * 10);
+    Transition(1, () => {
+        GameMode = "Streak";
+        localStorage.CurrentGameMode = GameMode;
+        GuessedPlants.clear();
+        GuessResults = {};
+        GuessedStats = {};
+        for (let stat of StatList) {
+            GuessedStats[stat] = {};
         }
-        localStorage.setItem("StreakHunt_attemptSeed", number);
-    }
-    /*THIS ROUND'S PLANT!!!*/
-    Math.seedV2 = [localStorage.StreakHunt_attemptSeed,localStorage.userSeed];
-    TodaysPlant = AllPlants[Math.floor(Math.seededRandomV2(AllPlantsLen-1,0))];
-    /*THIS ROUND'S PLANT!!!*/
-
-    GuessedList.innerHTML = StatText;
-
-    /*AUTOMATICALLY SUBMIT GUESSES FROM LOCALSTORAGE*/
-    if (localStorage.StreakHunt_GuessedPlants) {
-        for (let plantName of localStorage.StreakHunt_GuessedPlants.split(",")) {
-            AddGuess(plantName);
+        SetBlock(AnswerBox);
+        SetNone($("judgmentText"));
+        SetNone($("ShareButton"));
+        ClearChild($(`ContinueButton`));
+        if (!localStorage.StreakHunt_CurrentStreak) localStorage.StreakHunt_CurrentStreak = "1";
+        let NoOfGuesses = localStorage.StreakHunt_GuessedPlants?.length > 0 ? localStorage.StreakHunt_GuessedPlants.split(",").length : 0;
+        let Delta = ((8 - Math.min(7, Math.floor(localStorage.StreakHunt_CurrentStreak / 20))) - NoOfGuesses);
+        $("TopText").innerHTML = "GUESS ROUND " + localStorage["StreakHunt_CurrentStreak"] + "'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
+        if (!localStorage.StreakHunt_attemptSeed) {
+            let number = '';
+            number += Math.floor(Math.random() * 9 + 1);
+            for (let i = 1; i < 25; i++) {
+                number += Math.floor(Math.random() * 10);
+            }
+            localStorage.setItem("StreakHunt_attemptSeed", number);
         }
-    }
+        /*THIS ROUND'S PLANT!!!*/
+        Math.seedV2 = [localStorage.StreakHunt_attemptSeed, localStorage.userSeed];
+        TodaysPlant = AllPlants[Math.floor(Math.seededRandomV2(AllPlantsLen - 1, 0))];
+        /*THIS ROUND'S PLANT!!!*/
+
+        GuessedList.innerHTML = StatText;
+    }, () => {
+        /*AUTOMATICALLY SUBMIT GUESSES FROM LOCALSTORAGE*/
+        if (localStorage.StreakHunt_GuessedPlants) {
+            for (let plantName of localStorage.StreakHunt_GuessedPlants.split(",")) {
+                AddGuess(plantName);
+            }
+        }
+    }, `STREAK HUNT<br/>ROUND ${localStorage["StreakHunt_CurrentStreak"]}`);
 }
 
 if (localStorage.CurrentGameMode === "Daily") {

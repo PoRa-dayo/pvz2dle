@@ -15,16 +15,18 @@
 .dFlexWrap_PvZ2DleGuessBox > * {
     border: 2px solid rgb(96 139 168);
     border-radius: 5px;
-    font-size:18px;
+    font-size:15px;
     height:45px;
     text-align:center;
     width: 109px;
     flex: 0 0 auto;
     background-color: lightblue;
+    overflow: auto;
 }
 
 .dFlexWrap_PvZ2DleGuessBox {
-    border: 2px dotted rgb(96 139 168);
+    border: 3px solid #D1D1AF;
+    border-radius: 15px;
     display: grid;
     grid-template-columns: repeat(9, 109px);
     gap: 4px;
@@ -36,24 +38,27 @@
     height: 60%;
     width: 80%;
     padding-top: 4px;
-    background-color: beige;
     align-content: start;
     max-width: 1030px;
+    background-color: #F4ECDB;
+    box-shadow: inset 0 -2px 0 #E5DCCC;
 }
 
 .dFlexWrap_PvZ2DleGuessBox_Mobile > * {
     border: 2px solid rgb(96 139 168);
     border-radius: 5px;
-    font-size:15px;
+    font-size:13px;
     height:45px;
     text-align:center;
     width: 70px;
     flex: 0 0 auto;
     background-color: lightblue;
+    overflow: auto;
 }
 
 .dFlexWrap_PvZ2DleGuessBox_Mobile {
-    border: 2px dotted rgb(96 139 168);
+    border: 3px solid #D1D1AF;
+    border-radius: 15px;
     display: grid;
     grid-template-columns: repeat(9, 70px);
     gap: 4px;
@@ -65,69 +70,99 @@
     height: 60%;
     width: 80%;
     padding-top: 4px;
-    background-color: beige;
     align-content: start;
     max-width: 675px;
+    background-color: #F4ECDB;
+    box-shadow: inset 0 -2px 0 #E5DCCC;
 }
 
 .dFlexWrap_PvZ2DleItem > * {
-    border: 2px solid rgb(96 139 168);
     border-radius: 5px;
-    font-size:18px;
+    font-size:15px;
     height:45px;
     text-align:center;
     width: 110px;
     flex: 0 0 auto;
     padding-top:5px;
     position:relative;
-    background-color: lightblue;
+    overflow: auto;
+    background-size: cover;
+    text-shadow: 0px -1px 1px black, 0px 1px 1px black, 1px 0px 1px black, -1px 0px 0px black, 1px 2px 1px black;
+    color: white;
 }
 
 .dFlexWrap_PvZ2DleItem {
-    border: 2px dotted rgb(96 139 168);
+    border: 7px solid #AC7043;
+    border-radius: 18px;
+    padding: 3px 6px 3px 3px;
+    outline-offset: -2px;
     display: grid;
     grid-template-columns: repeat(9, 110px);
     gap: 4.5px;
     position: relative;
     overflow: auto;
     margin: auto;
-    top: 160px;
+    top: 115px;
     height: 70%;
     width: 81%;
     max-width: 1030px;
-    padding-top: 4px;
     align-content: start;
     background: rgba(0,0,0,0.8);
+    box-shadow: 1px 1px 0 #FBC663, inset 3px 3px 0.1px #77542F, inset -3px -3px 0.1px #77542F, -1px -1px 0.5px #FBC663;
 }
 
 .dFlexWrap_PvZ2DleItem_Mobile > * {
-    border: 2px solid rgb(96 139 168);
     border-radius: 5px;
-    font-size:15px;
+    font-size:13px;
     height:45px;
     text-align:center;
     width: 70px;
     flex: 0 0 auto;
     padding-top:5px;
     position:relative;
-    background-color: lightblue;
+    overflow: auto;
+    background-size: 70px 66px;
+    text-shadow: 0px -1px 1px black, 0px 1px 1px black, 1px 0px 1px black, -1px 0px 0px black, 1px 2px 1px black;
+    color: white;
 }
 
 .dFlexWrap_PvZ2DleItem_Mobile {
-    border: 2px dotted rgb(96 139 168);
+    border: 7px solid #AC7043;
+    border-radius: 18px;
+    padding: 3px 6px 3px 3px;
+    outline-offset: -2px;
     display: grid;
     grid-template-columns: repeat(9, 70px);
     gap: 4.5px;
     position: relative;
     overflow: auto;
     margin: auto;
-    top: 160px;
+    top: 115px;
     height: 70%;
     width: 81%;
     max-width: 675px;
-    padding-top: 4px;
     align-content: start;
     background: rgba(0,0,0,0.8);
+    box-shadow: 1px 1px 0 #FBC663, inset 3px 3px 0.1px #77542F, inset -3px -3px 0.1px #77542F, -1px -1px 0.5px #FBC663;
+}
+
+.dGreenTop {
+    background: linear-gradient(to top,#517E0B 40%, #7ABE0B 100%);
+    border-radius:10px 10px 0px 0px;
+    border-color: #517C0B;
+    border-style: none none solid none;
+    box-shadow: 2px 4px 0 #553920, inset 3px 3px 0.1px #82A24B, inset -3px 0 0.1px #38570B;
+    text-shadow: 0px -1px 1px black, 0px 1px 1px black, 1px 0px 1px black, -1px 0px 0px black, 1px 2px 1px black;
+    color: white;
+}
+
+.dGreenTop_Simple {
+    background: #70b10a;
+    border-radius:10px 10px 0px 0px;
+    border-color: #517C0B;
+    border-style: none none solid solid;
+    text-shadow: 0px -1px 1px black, 0px 1px 1px black, 1px 0px 1px black, -1px 0px 0px black, 1px 2px 1px black;
+    color: white;
 }
 
 .Button {
@@ -143,7 +178,122 @@
 a:-webkit-any-link {
     color:deepskyblue;
 }
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+    background-color: #F5EDDC;
+    top:0;
+    background-size: contain;
+}
+
+/* Style the back side */
+.flip-card-back {
+    background-color: #F96B80;
+    transform: rotateX(180deg);
+    padding-top:5px;
+    overflow: auto;
+    background-size: contain;
+    top:0;
+}
+
+.card_Normal {
+    height:60px;
+}
+
+.card_Normal_Mobile {
+    height:80px;
+}
+
+/* Custom scrollbar by User:HnugedHannah */
+.dFlexWrap_PvZ2DleItem::-webkit-scrollbar-track, .dFlexWrap_PvZ2DleGuessBox::-webkit-scrollbar-track, .CustomScroll::-webkit-scrollbar-track
+{
+    border-radius: 10px;
+    background-color: #8d8776;
+    outline: 0.25px solid #b3ad93;
+    outline-offset: -1px;
+    overflow:visible;
+}
+
+.dFlexWrap_PvZ2DleItem::-webkit-scrollbar, .dFlexWrap_PvZ2DleGuessBox::-webkit-scrollbar, .CustomScroll::-webkit-scrollbar
+{
+    width: 10px;
+    height: 10px;
+    opacity:0;
+    overflow:visible;
+}
+
+.dFlexWrap_PvZ2DleItem::-webkit-scrollbar-thumb, .dFlexWrap_PvZ2DleGuessBox::-webkit-scrollbar-thumb, .CustomScroll::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.5), inset 1px 1px 2px rgb(242,236,210), inset -1px -1px 2px rgb(223,216,187);
+    background: linear-gradient(90deg, rgb(219,213,190) 0%, rgb(242,236,210) 1%, rgb(223,216,187) 100%);
+    outline: 0.5px solid #b1ab91;
+}
+
 @keyframes ButtonBlink{
     50%{filter:brightness(200%);}
     100%{filter:brightness(100%);}
+}
+
+@keyframes Transition{
+    0%{opacity:0;transform:scale(1);}
+    25%{opacity:1;transform:scale(1.5);}
+    75%{opacity:1;transform:scale(2);}
+    100%{opacity:0;transform:scale(2.5);}
+}
+
+@keyframes bounce-in {
+    0% {
+        opacity: 0;
+        transform: scale(.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% { transform: scale(.9); }
+    100% { transform: scale(1); }
+}
+
+@keyframes bounce-out {
+    0% { transform: scale(1); }
+    25% { transform: scale(.95); }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(.3);
+    }
+}
+
+@keyframes descendBoard {
+    0% { top: -70%; }
+    100% { top: 0; }
+}
+
+@keyframes descendBoardContent {
+    0% { top: -50%; }
+    100% { top: 20%; }
 }

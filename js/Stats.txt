@@ -1,0 +1,22 @@
+Recharge time:
+Fast - 5 seconds
+Mediocre - 8 seconds or above
+Sluggish - 20 seconds or above
+Slow - 30 seconds or above
+Very Slow - 45 seconds or above
+
+Damage rates:
+Light - 5 to 20 damage (0.5x speed)
+Normal - 20 - <30 damage
+Moderate - 30 to 70 damage
+Heavy - 75 to 200 damage
+Extensive - >200 to <550 damage
+Huge - 550 to 1000 damage
+Massive - 1200 or more damage
+
+
+Toughness rates: 
+Firm: 900 damage
+Elevated - 1200-2000 damage
+High - 3000/4000 damage
+Very High - 6000+ damage
