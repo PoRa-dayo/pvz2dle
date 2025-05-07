@@ -7,7 +7,7 @@ function ShowNews() {
             innerText: "News"
         }, newsShade);
         tutorialTitle.style.textShadow = txtshadow;
-        NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
+        NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;z-index:10;`, {
             className: "Button",
             onclick: () => {
                 oEffects.fadeOut(newsShade, "fast", ClearChild);

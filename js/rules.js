@@ -9,7 +9,7 @@ let AlmanacButton = NewEle(`AlmanacButton`, 'div', `background: url(images/Alman
             innerText: "Welcome to PvZ2Dle!"
         }, rulesShade);
         tutorialTitle.style.textShadow = txtshadow;
-        NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
+        NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;z-index:10;`, {
             className: "Button",
             onclick: () => {
                 oEffects.fadeOut(rulesShade, "fast", ClearChild);

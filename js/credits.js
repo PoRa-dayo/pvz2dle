@@ -7,7 +7,7 @@ NewEle(`CreditsButton`, 'div', `background: url(images/Credits_Button.png) no-re
             innerText: "Credits"
         }, creditsShade);
         creditsTitle.style.textShadow = txtshadow;
-        NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
+        NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;z-index:10;`, {
             className: "Button",
             onclick: () => {
                 oEffects.fadeOut(creditsShade, "fast", ClearChild);

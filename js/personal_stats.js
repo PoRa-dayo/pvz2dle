@@ -7,7 +7,7 @@ let LogButton = NewEle(`LogButton`, 'div', `background: url(images/Personal_Stat
             innerText: "Personal Stats"
         }, statsShade);
         tutorialTitle.style.textShadow = txtshadow;
-        NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;`, {
+        NewEle(`ReturnButton`, 'div', `background: url(images/Return_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;left:0px;width:60px;height:60px;z-index:10;`, {
             className: "Button",
             onclick: () => {
                 oEffects.fadeOut(statsShade, "fast", ClearChild);
