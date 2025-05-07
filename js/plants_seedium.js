@@ -170,7 +170,7 @@ const oDazeyChain = {
     CodeName: "oDazeyChain",
     EngName: "Dazey Chain",
     SunNum: 150,
-    Attack: null,
+    Attack: "Moderate",
     World: "Seedium",
     Recharge: "Fast",
     RangeArea: "Multi-Hit, Straight Ahead",
