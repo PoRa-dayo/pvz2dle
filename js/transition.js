@@ -17,6 +17,7 @@ async function Transition(duration=1, MidCallback,EndCallback, text="") {
         }
         await Promise.all(promiseArray); // wait for all the images to be loaded
         TrueTransition(duration, MidCallback, EndCallback, text);
+        EDAll.style["pointer-events"] = "";
     } else {
         TrueTransition(duration, MidCallback, EndCallback, text);
     }
