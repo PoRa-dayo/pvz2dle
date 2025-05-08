@@ -142,7 +142,6 @@ const oEffects = {
             }
         });
     },
-    //NOTE: Also be wary of the polyfill version of oEffects.Animate in add-ons/polyfillGame.js
     //NOTE: clip-path does NOT work with effectType 'animation' for some reason
     Animate(ele, properties, duration = 0.4, ease = 'linear', callback, delay = 0, iterationCount = 1, effectType = 'animation') {
         if(!ele){
