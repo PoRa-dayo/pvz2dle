@@ -128,7 +128,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
             }, TheShare);
             if (/Won|Lost/.test(localStorage.FinalResult)) {
                 let tutorialTxt3 = NewEle("tutorialTxt3", "center", `color:white;position:relative;font-size:22px;width:75%;display:inline-block;`, {
-                    innerHTML: `Next challenge in:`,
+                    innerHTML: `Remember, everyone gets the same plant each day, so don't spoil the answer!<br/><br/>Next challenge in:`,
                 }, TheShare);
                 tutorialTxt3.style.textShadow = txtshadow;
                 let today = new Date();
@@ -152,7 +152,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                     let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                     // Display the result
-                    tutorialTxt3.innerHTML = `Next challenge in:<br/>` + hours + "h "
+                    tutorialTxt3.innerHTML = `Remember, everyone gets the same plant each day, so don't spoil the answer!<br/><br/>Next challenge in:<br/>` + hours + "h "
                         + minutes + "m " + seconds + "s ";
 
                     // If the count down is finished, write some text
