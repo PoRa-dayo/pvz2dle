@@ -439,7 +439,7 @@ const oGloomVine = {
     Recharge: "Fast",
     RangeArea: "3x3",
     Special: "Boost",
-    Usage: null,
+    Usage: "Plant On Plants",
     Family: "Conceal-mint",
 };
 const oDraftodil = {
