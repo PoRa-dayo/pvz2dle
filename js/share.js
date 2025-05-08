@@ -1,4 +1,15 @@
 "use strict";
+function getFormattedDate() {
+    const date = new Date();
+
+    const options = { month: 'long' };
+    const month = new Intl.DateTimeFormat('en-US', options).format(date);
+
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    return `${month} ${day}, ${year}`;
+}
 let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_Button.png) no-repeat center center; background-size: contain;position:absolute;bottom:10px;right:0px;width:${IsMobile?50:60}px;height:${IsMobile?50:60}px;display:none;${sessionStorage["CheckedShare"]?"":"animation: ButtonBlink 1s infinite"}`, {
     className: "Button",
     onclick: () => {
@@ -45,11 +56,11 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
             let IntroShareStr;
             switch (localStorage.FinalResult) {
                 case "Won": {
-                    IntroShareStr = "I won today's PvZ2Dle! ";
+                    IntroShareStr = `I won ${getFormattedDate()}'s PvZ2Dle! `;
                     break;
                 }
                 case "Lost": {
-                    IntroShareStr = "I lost today's PvZ2Dle... ";
+                    IntroShareStr = `I lost ${getFormattedDate()}'s PvZ2Dle... `;
                     break;
                 }
                 case "Streak": {
