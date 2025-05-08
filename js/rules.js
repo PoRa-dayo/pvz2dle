@@ -38,7 +38,7 @@ let AlmanacButton = NewEle(`AlmanacButton`, 'div', `background: url(images/Alman
             }, ExampleList);
             let theText = `For Name, Range/Area, Usage, and Special, the stat will be Partially Correct if there are 3 or more common consecutive letters between your guess and the Correct stat. (e.g. <i>Pea</i> shoo<i>ter</i>  and Re<i>peater</i>)</br></br>
                     For Sun Cost, the stat will be Partially Correct if you are less than 50 sun away from the Correct stat.</br></br>
-                    For Damage and Recharge, the stat will be Partially Correct if you are 1 level away from the Correct stat.</br></br>
+                    For Damage and Recharge, the stat will be Partially Correct if you are 1 level away from the Correct stat (The highest stat is also 1 level away from the lowest).</br></br>
                     For World and Family, the stat will be Partially Correct if you are 2 worlds/families (or less) away from the Correct one, following the order of this list (the list can loop around, so e.g. Power Mints is still near Player's House):</br></br>
             ` + WorldArr.join(", ") + `<br/><br/>` + FamilyArr.join(", ") + `<br/><br/>(P.S. Rhubarbarian and all Seediums released after that will not be included, because fuck Rhubarbarian look at his ugly face I hate him I hate him I hate him)`;
 
