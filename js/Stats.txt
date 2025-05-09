@@ -30,10 +30,14 @@ Straight - straight-shot projectile, ahead of the plant, on its lane (can be com
 Lobbed - lobbed projectile, ahead of the plant, on its lane (can be combined with Front & Back)
 Ahead - not a single-hit-straight-shot or lobbed projectile, ahead of the plant, on its lane
 Multi-Lane - ability affects multiple lanes, but no Multi-Hit on each lane
+X Way - unique trajectory in X directions
 
-AREA:
-Single - ability only affects a single zombie over the entirety of its lifespan, only used with Touch range
+AREA: (Special with the Rush ability does not count towards Range/Area unless it's the plant's main ability, Tap To Aim COUNTS AS FULL BOARD)
+Single - ability only affects a single zombie over the entirety of the plant's lifespan, only used with Touch range
 XxY - ability affects every zombie in a XxY area
 Lane - ability affects every zombie on its lane
-Multi-Hit - ability affects multiple zombies that doesn't fit the other Area stats, not used with Touch range (if it bounces like Bowling Bulb or Grapeshot then Shot Bounces is listed in Special)
-Full Board - self-explanatory
+Column - ability affects every zombie on its column
+Column X - ability affects every zombie on column X
+X Columns - ability affects every zombie on X columns
+Multi-Hit - ability affects multiple zombies that doesn't fit the other Area stats, not used with Touch range (if it bounces like Bowling Bulb or Grapeshot then Shot Bounces is listed in Special, if it arcs the way Lightning Reed does then Zombies Zapped is listed)
+Full Board - self-explanatory (does not imply whether it can target one or multiple zombies at once, but who fucking cares, unless it has separate abilities that don't have Full Board range at all)
