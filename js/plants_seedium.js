@@ -572,7 +572,7 @@ const oTeleportatoMine = {
     RangeArea: "Full Board, 3x3",
     Special: "Teleport Zombie, Arming Time (Mediocre)",
     Usage: "Single, Instant",
-    Family: "Enforce-mint",
+    Family: "Bombard-mint",
 };
 const oBlockoli = {
     CodeName: "oBlockoli",
