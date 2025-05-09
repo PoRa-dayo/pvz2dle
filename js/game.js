@@ -248,10 +248,13 @@ let GuessedList = NewEle(`dFlexWrap_PvZ2DleItem`, 'div', '', {
 }, EDAll);
 
 /*THE FUNCTIONS RELATED TO SUBMITTING A GUESS*/
-function findCommonConsecutiveLetters(str1, str2) {
+function findCommonConsecutiveLetters(str1, str2, stat) {
     // Normalize strings to lowercase to make comparison case-insensitive
     str1 = ((str1 ?? "No") + "").toLowerCase();
     str2 = ((str2 ?? "No") + "").toLowerCase();
+    if (stat === "RangeArea" && /x/.test(str1) && /x/.test(str2)) {
+        return true;
+    }
     if (str1.length < 3 || str2.length < 3) {return false;}
 
     // Loop through substrings of str1 of length 3 or more
@@ -329,7 +332,7 @@ function AddGuess(plantName, manual = false) {
             correctCount++;
         } else {
             if (/RangeArea|Usage|Special/.test(stat)) {
-                partiallyCorrect = findCommonConsecutiveLetters(plantObj[stat], TodaysPlant[stat]);
+                partiallyCorrect = findCommonConsecutiveLetters(plantObj[stat], TodaysPlant[stat], stat);
             } else {
                 // Note: It checks if the difference is SMALLER than diff, not smaller or equal to diff
                 const statLists = {

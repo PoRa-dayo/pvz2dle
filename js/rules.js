@@ -36,7 +36,7 @@ let AlmanacButton = NewEle(`AlmanacButton`, 'div', `background: url(images/Alman
             NewEle(`PARTIALLY CORRECT`, 'div', `background-image:url(images/Card_Yellow.png);height:65px;`, {
                 innerText: "PARTIALLY CORRECT",
             }, ExampleList);
-            let theText = `For Name, Range/Area, Usage, and Special, the stat will be Partially Correct if there are 3 or more common consecutive letters between your guess and the Correct stat. (e.g. <i>Pea</i> shoo<i>ter</i>  and Re<i>peater</i>)</br></br>
+            let theText = `For Name, Range/Area, Usage, and Special, the stat will be Partially Correct if there are 3 or more common consecutive letters between your guess and the Correct stat. (e.g. <i>Pea</i> shoo<i>ter</i>  and Re<i>peater</i>)<br/>For Range/Area, Partially Correct also occurs if your guess and the Correct stat both have the letter "x".</br></br>
                     For Sun Cost, the stat will be Partially Correct if you are less than 50 sun away from the Correct stat.</br></br>
                     For Damage and Recharge, the stat will be Partially Correct if you are 1 level away from the Correct stat (The highest stat is also 1 level away from the lowest).</br></br>
                     For World and Family, the stat will be Partially Correct if you are 2 worlds/families (or less) away from the Correct one, following the order of this list (the list can loop around, so e.g. Power Mints is still near Player's House):</br></br>
