@@ -20,3 +20,20 @@ Firm: 900 damage
 Elevated - 1200-2000 damage
 High - 3000/4000 damage
 Very High - 6000+ damage
+
+RANGE: (Tile and Touch affects all zombies by default (if not use with Single area), all other Range affects a single zombie by default (if not use with Multi-Hit))
+Tile - ability affects all zombies on its tile
+Touch - ability affects zombies near its tile (enough for the zombie to eat it) (if it only affects 1 zombie then it's used along with Area: Single)
+Close - 1 tile ahead of the plant (can be combined with Front & Back)
+X Tiles Ahead - range spans x tiles in front of the plant, on its lane (if it's not single then use the XxY area)
+Straight - straight-shot projectile, ahead of the plant, on its lane (can be combined with Front & Back)
+Lobbed - lobbed projectile, ahead of the plant, on its lane (can be combined with Front & Back)
+Ahead - not a single-hit-straight-shot or lobbed projectile, ahead of the plant, on its lane
+Multi-Lane - ability affects multiple lanes, but no Multi-Hit on each lane
+
+AREA:
+Single - ability only affects a single zombie over the entirety of its lifespan, only used with Touch range
+XxY - ability affects every zombie in a XxY area
+Lane - ability affects every zombie on its lane
+Multi-Hit - ability affects multiple zombies that doesn't fit the other Area stats, not used with Touch range (if it bounces like Bowling Bulb or Grapeshot then Shot Bounces is listed in Special)
+Full Board - self-explanatory
