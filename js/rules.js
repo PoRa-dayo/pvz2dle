@@ -27,13 +27,13 @@ let AlmanacButton = NewEle(`AlmanacButton`, 'div', `background: url(images/Alman
             let ExampleList = NewEle(`ExampleList`, 'div', 'position:relative;height:65px;top:0px;left:0%;width:22.2em;background:none;border:none;box-shadow:none;grid-template-columns: repeat(3, 110px);gap:5px;', {
                 className: 'dFlexWrap_PvZ2DleItem',
             }, TheRules);
-            NewEle(`WRONG`, 'div', `background-image:url(images/Card_Red.png);height:60px;`, {
+            NewEle(`WRONG`, 'div', `background-image:url(images/Card_Red.png);height:65px;`, {
                 innerText: "WRONG",
             }, ExampleList);
-            NewEle(`CORRECT`, 'div', `background-image:url(images/Card_Green.png);height:60px;`, {
+            NewEle(`CORRECT`, 'div', `background-image:url(images/Card_Green.png);height:65px;`, {
                 innerText: "CORRECT",
             }, ExampleList);
-            NewEle(`PARTIALLY CORRECT`, 'div', `background-image:url(images/Card_Yellow.png);height:60px;`, {
+            NewEle(`PARTIALLY CORRECT`, 'div', `background-image:url(images/Card_Yellow.png);height:65px;`, {
                 innerText: "PARTIALLY CORRECT",
             }, ExampleList);
             let theText = `For Name, Range/Area, Usage, and Special, the stat will be Partially Correct if there are 3 or more common consecutive letters between your guess and the Correct stat. (e.g. <i>Pea</i> shoo<i>ter</i>  and Re<i>peater</i>)</br></br>
