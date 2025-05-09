@@ -29,7 +29,7 @@ X Tiles Ahead - range spans x tiles in front of the plant, on its lane (if it's 
 Straight - straight-shot projectile, ahead of the plant, on its lane (can be combined with Front & Back)
 Lobbed - lobbed projectile, ahead of the plant, on its lane (can be combined with Front & Back)
 Ahead - not a single-hit-straight-shot or lobbed projectile, ahead of the plant, on its lane
-Multi-Lane - ability affects multiple lanes, but no Multi-Hit on each lane
+Split (used to be Multi-Lane) - ability affects multiple lanes, but no Multi-Hit on each lane
 X Way - unique trajectory in X directions
 
 AREA: (Special with the Rush ability does not count towards Range/Area unless it's the plant's main ability, Tap To Aim COUNTS AS FULL BOARD)

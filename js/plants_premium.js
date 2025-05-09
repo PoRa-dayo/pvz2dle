@@ -341,7 +341,7 @@ const oAppleMortar = {
     Attack: "Moderate",
     World: "Premium",
     Recharge: "Mediocre",
-    RangeArea: "Lobbed, Multi-Lane (3 Lanes)",
+    RangeArea: "Lobbed, Split (3 Lanes)",
     Special: "Stun",
     Usage: null,
     Family: "Arma-mint",
