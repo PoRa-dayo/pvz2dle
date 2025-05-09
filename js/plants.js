@@ -344,7 +344,7 @@ const oChardGuard = {
     World: "Frostbite Caves",
     Recharge: "Mediocre",
     RangeArea: null,
-    Special: "Leaf Pushes",
+    Special: "Knockback",
     Usage: "Wall (Elevated)",
     Family: "Reinforce-mint",
 };
