@@ -87,6 +87,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                 "I feel like it truly isn't over until it's Blover.",
                 "I feel so Possa Possa...",
                 "I feel so Cuberry.",
+                "I feel so ⑨ baka baka.",
                 "I feel like Creeps20's fellow citizen.",
                 "I feel like ItsP's S-4 fail montage.",
                 "I feel like I'm enjoying Zants vs. Plombies again!",
@@ -108,6 +109,17 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                 "I feel like jumpscaring PvZ fans with an anime girl!",
                 "I feel like spending 10 hours at PvZ Brutal EX Plus Hard Mode Total Death Edition.",
                 "I feel like making a clickbait video with Stardrop's meteors.",
+                "I feel like any time, it's zombie time! (I better)",
+                "I feel like there's a zombie on your lawn.",
+                "I feel like I am the angry pumpkin.",
+                "I feel like disturbing the peace.",
+                "I feel like I have the high ground.",
+                "I feel like this quiz was 99.1 percent pure.",
+                "I feel like a pineapple under the sea.",
+                "I feel like I am the storm that is approaching.",
+                "I feel like memes are the DNA of the soul.",
+                "I feel like updating the autopsy report.",
+                "I-",
             ];
             IntroShareStr += BonusIntroArr[Math.floor(Math.seededRandomV2(BonusIntroArr.length - 1, 0))];
             if (localStorage.FinalResult === "Streak") {
