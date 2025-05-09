@@ -66,7 +66,7 @@ const oAloe = {
     World: "Seedium",
     Recharge: "Sluggish",
     RangeArea: "Close",
-    Special: "Heal Plant",
+    Special: "Restore Life",
     Usage: null,
     Family: "Reinforce-mint",
 };
