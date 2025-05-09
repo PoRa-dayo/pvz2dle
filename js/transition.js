@@ -79,11 +79,11 @@ function FlyingText(text="Your Mom", duration=0.5, size = 2.5) {
 function TitleDrop() {
     const TitleDOM = NewEle(`TitleDOM`, 'div', 'position:absolute;top:40%;left:0px;z-index:1503;pointer-events:none;width:100%;height:150px;', {
     }, EDAll);
-    let Logo_PvZ = NewEle(`Logo_PvZ`, 'div', `background: url(images/PvZ2Dle_Logo_PvZ.png) no-repeat center center; background-size: contain;position:relative;display:block;margin:auto;left:-13vw;width:30vw;height:35vh;animation:bounce-in 0.3s ease-out 1;`, {
+    let Logo_PvZ = NewEle(`Logo_PvZ`, 'div', `background: url(images/PvZ2Dle_Logo_PvZ.png) no-repeat center center; background-size: contain;position:relative;display:block;margin:auto;left:-12vw;width:30vw;height:35vh;animation:bounce-in 0.3s ease-out 1;`, {
     }, TitleDOM);
     const TitleDOM2 = NewEle(`TitleDOM2`, 'div', 'position:absolute;top:40%;left:0px;z-index:1501;pointer-events:none;width:100%;height:150px;', {
     }, EDAll);
-    let Logo_DLE = NewEle(`Logo_DLE`, 'div', `background: url(images/PvZ2Dle_Logo_DLE.png) no-repeat center center; background-size: contain;position:relative;display:block;margin:auto;left:12vw;width:30vw;height:35vh;animation:bounce-in 0.3s ease-out 1;`, {
+    let Logo_DLE = NewEle(`Logo_DLE`, 'div', `background: url(images/PvZ2Dle_Logo_DLE.png) no-repeat center center; background-size: contain;position:relative;display:block;margin:auto;left:11vw;width:30vw;height:35vh;animation:bounce-in 0.3s ease-out 1;`, {
     }, TitleDOM2);
     setTimeout(() => {
         const TitleDOM3 = NewEle(`TitleDOM3`, 'div', 'position:absolute;top:40%;left:0px;z-index:1502;pointer-events:none;width:100%;height:150px;', {
@@ -91,15 +91,15 @@ function TitleDrop() {
         let Logo_2 = NewEle(`Logo_2`, 'div', `background: url(images/PvZ2Dle_Logo_2.png) no-repeat center center; background-size: contain;position:relative;display:block;margin:auto;width:20vw;height:50vh;top:-10vh;animation:bounce-in 0.3s ease-out 1;`, {
         }, TitleDOM3);
         oEffects.Animate(Logo_PvZ,{
-            "left":"-18vw",
+            "left":"-17vw",
         },0.2,"cubic-bezier(0.22, 1, 0.36, 1)");
         oEffects.Animate(Logo_DLE,{
-            "left":"17vw",
+            "left":"16vw",
         },0.2,"cubic-bezier(0.22, 1, 0.36, 1)");
         setTimeout(() => {
-            oEffects.Animate(Logo_PvZ,"bounce-out", 0.3, "ease-in", ClearChild);
-            oEffects.Animate(Logo_DLE,"bounce-out", 0.3, "ease-in", ClearChild);
-            oEffects.Animate(Logo_2,"bounce-out", 0.3, "ease-in", ClearChild);
+            oEffects.Animate(TitleDOM,"bounce-out", 0.3, "ease-in", ClearChild);
+            oEffects.Animate(TitleDOM2,"bounce-out", 0.3, "ease-in", ClearChild);
+            oEffects.Animate(TitleDOM3,"bounce-out", 0.3, "ease-in", ClearChild);
         },750);
     },750);
 }
