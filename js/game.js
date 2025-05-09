@@ -91,15 +91,15 @@ let TodaysPlant;
 
 const StatList = ["SunNum", "World", "Attack", "Recharge", "RangeArea", "Usage", "Special", "Family"];
 let StatText = `
-    <div class="dGreenTop"><img src="images/StatTitles/Name.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> NAME</div>
-    <div class="dGreenTop"><img src="images/StatTitles/Sun_Cost.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> SUN COST</div>
-    <div class="dGreenTop"><img src="images/StatTitles/World.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> WORLD</div>
-    <div class="dGreenTop"><img src="images/StatTitles/Damage.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> DAMAGE</div>
-    <div class="dGreenTop"><img src="images/StatTitles/Recharge.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> RECHARGE</div>
-    <div class="dGreenTop"><img src="images/StatTitles/Area.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> RANGE/AREA</div>
-    <div class="dGreenTop"><img src="images/StatTitles/Usage.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> USAGE</div>
-    <div class="dGreenTop"><img src="images/StatTitles/Special.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> SPECIAL</div>
-    <div class="dGreenTop"><img src="images/StatTitles/Family.webp" alt"" style="position:relative;top:3px;width:20px;height:20px;"> FAMILY</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Name.webp" alt"" style="position:relative;top:0;width:20px;height:20px;vertical-align:middle;"> NAME</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Sun_Cost.webp" alt"" style="position:relative;top:0;width:20px;height:20px;vertical-align:middle;"> SUN COST</div>
+    <div class="dGreenTop"><img src="images/StatTitles/World.webp" alt"" style="position:relative;top:0;width:20px;height:20px;vertical-align:middle;"> WORLD</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Damage.webp" alt"" style="position:relative;top:0;width:20px;height:20px;vertical-align:middle;"> DAMAGE</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Recharge.webp" alt"" style="position:relative;top:0;width:20px;height:20px;vertical-align:middle;"> RECHARGE</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Area.webp" alt"" style="position:relative;top:0;width:20px;height:20px;vertical-align:middle;"> RANGE/AREA</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Usage.webp" alt"" style="position:relative;top:0;width:20px;height:20px;vertical-align:middle;"> USAGE</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Special.webp" alt"" style="position:relative;top:0;width:20px;height:20px;vertical-align:middle;"> SPECIAL</div>
+    <div class="dGreenTop"><img src="images/StatTitles/Family.webp" alt"" style="position:relative;top:0;width:20px;height:20px;vertical-align:middle;"> FAMILY</div>
 `;
 let StatTextSimple = StatText.replaceAll('dGreenTop', 'dGreenTop_Simple');
 
@@ -164,7 +164,7 @@ AnswerBox.oninput = AnswerBox.onfocus = () => {
             for (let plName of plantList) {
                 let plantObj = AllPlantNames[plName];
                 NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;', {
-                    innerHTML: `<img src="images/Name/${plName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` + plName,
+                    innerHTML: `<img src="images/Name/${plName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> ` + plName,
                     className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
                     onclick: () => {AddGuess(plantObj.EngName, true)}
                 }, GuessingList);
@@ -174,7 +174,7 @@ AnswerBox.oninput = AnswerBox.onfocus = () => {
                         BGcolor = (TheGuessedStat === 0 ? "F8657B" : (TheGuessedStat === 1 ? "67D898" : "E0C584"));
                     }
                     NewEle(`${plantObj.CodeName}_${stat}`, 'div', "cursor:pointer;background-color:#" + BGcolor, {
-                        innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` : ``) + (plantObj[stat] ?? "No"),
+                        innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> ` : ``) + (plantObj[stat] ?? "No"),
                         className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
                         onclick: () => {AddGuess(plantObj.EngName, true)}
                     }, GuessingList);
@@ -188,7 +188,7 @@ AnswerBox.oninput = AnswerBox.onfocus = () => {
             for (let plName of worldList) {
                 let plantObj = AllPlantNames[plName];
                 NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;', {
-                    innerHTML: `<img src="images/Name/${plName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` + plName,
+                    innerHTML: `<img src="images/Name/${plName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> ` + plName,
                     className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
                     onclick: () => {AddGuess(plantObj.EngName, true)}
                 }, GuessingList);
@@ -198,7 +198,7 @@ AnswerBox.oninput = AnswerBox.onfocus = () => {
                         BGcolor = (TheGuessedStat === 0 ? "F8657B" : (TheGuessedStat === 1 ? "67D898" : "E0C584"));
                     }
                     NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;background-color:#' + BGcolor, {
-                        innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` : ``) + (plantObj[stat] ?? "No"),
+                        innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> ` : ``) + (plantObj[stat] ?? "No"),
                         className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
                         onclick: () => {AddGuess(plantObj.EngName, true)}
                     }, GuessingList);
@@ -212,7 +212,7 @@ AnswerBox.oninput = AnswerBox.onfocus = () => {
             for (let plName of familyList) {
                 let plantObj = AllPlantNames[plName];
                 NewEle(`${plantObj.CodeName}_Name`, 'div', 'cursor:pointer;', {
-                    innerHTML: `<img src="images/Name/${plName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` + plName,
+                    innerHTML: `<img src="images/Name/${plName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> ` + plName,
                     className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
                     onclick: () => {AddGuess(plantObj.EngName, true)}
                 }, GuessingList);
@@ -222,7 +222,7 @@ AnswerBox.oninput = AnswerBox.onfocus = () => {
                         BGcolor = (TheGuessedStat === 0 ? "F8657B" : (TheGuessedStat === 1 ? "67D898" : "E0C584"));
                     }
                     NewEle(`${plantObj.CodeName}_${stat}`, 'div', 'cursor:pointer;background-color:#' + BGcolor, {
-                        innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` : ``) + (plantObj[stat] ?? "No"),
+                        innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> ` : ``) + (plantObj[stat] ?? "No"),
                         className: "card_Normal" + (IsMobile ? "_Mobile" : ""),
                         onclick: () => {AddGuess(plantObj.EngName, true)}
                     }, GuessingList);
@@ -298,11 +298,11 @@ function AddGuess(plantName, manual = false) {
     let temCard = NewEle(`${plantName}_Name_Card`, 'div', `top:100px;opacity:0;overflow:hidden;`, {
         className: "flip-card flip-card-inner card_Normal" + (IsMobile ? "_Mobile" : ""),
     }, GuessedList);
-    let f=NewEle(`${plantName}_Name_f`, 'div', `background-image:url(images/Card_Hidden.png);${IsMobile?"background-size: 70px 86px;":""}`, {
+    let f=NewEle(`${plantName}_Name_f`, 'div', `background-image:url(images/Card_Hidden.png);${IsMobile?"background-size: 70px 80px;":""}`, {
         className: "flip-card-front",
     }, temCard);
-    let b=NewEle(`${plantName}_Name_b`, 'div', `background-image:url(images/Card_${correct ? "Green" : (partiallyCorrect ? "Yellow" : "Red")}.png);background-color:#${correct ? "6DDA9D" : (partiallyCorrect ? "DEC37F" : "FA697D")};${IsMobile?"background-size: 70px 86px;":""}`, {
-        innerHTML: `<img src="images/Name/${plantName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` + plantName,
+    let b=NewEle(`${plantName}_Name_b`, 'div', `background-image:url(images/Card_${correct ? "Green" : (partiallyCorrect ? "Yellow" : "Red")}.png);background-color:#${correct ? "6DDA9D" : (partiallyCorrect ? "DEC37F" : "FA697D")};${IsMobile?"background-size: 70px 80px;":""}`, {
+        innerHTML: `<img src="images/Name/${plantName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> ` + plantName,
         className: "flip-card-back",
     }, temCard);
     oEffects.Animate(temCard,{
@@ -364,11 +364,11 @@ function AddGuess(plantName, manual = false) {
         let temCard = NewEle(`${plantName}_${stat}_Card`, 'div', `top:100px;opacity:0;overflow:hidden;`, {
             className: "flip-card flip-card-inner card_Normal" + (IsMobile ? "_Mobile" : ""),
         }, GuessedList);
-        let f=NewEle(`${plantName}_${stat}_f`, 'div', `background-image:url(images/Card_Hidden.png);${IsMobile?"background-size: 70px 86px;":""}`, {
+        let f=NewEle(`${plantName}_${stat}_f`, 'div', `background-image:url(images/Card_Hidden.png);${IsMobile?"background-size: 70px 80px;":""}`, {
             className: "flip-card-front",
         }, temCard);
-        let b=NewEle(`${plantName}_${stat}_b`, 'div', `background-image:url(images/Card_${correct ? "Green" : (partiallyCorrect ? "Yellow" : "Red")}.png);background-color:#${correct ? "6DDA9D" : (partiallyCorrect ? "DEC37F" : "FA697D")};${IsMobile?"background-size: 70px 86px;":""}`, {
-            innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;"> ` : ``) + (plantObj[stat] ?? "No"),
+        let b=NewEle(`${plantName}_${stat}_b`, 'div', `background-image:url(images/Card_${correct ? "Green" : (partiallyCorrect ? "Yellow" : "Red")}.png);background-color:#${correct ? "6DDA9D" : (partiallyCorrect ? "DEC37F" : "FA697D")};${IsMobile?"background-size: 70px 80px;":""}`, {
+            innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt"" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> ` : ``) + (plantObj[stat] ?? "No"),
             className: "flip-card-back",
         }, temCard);
         setTimeout(() => {
@@ -424,7 +424,7 @@ function AddGuess(plantName, manual = false) {
     } else if (GuessedPlants.size >= (GameMode === "Streak" ? 8-Math.min(7,Math.floor(localStorage.StreakHunt_CurrentStreak/20)) : 8)) {
         SetNone(AnswerBox);
         SetBlock($("judgmentText"));
-        $("judgmentText").innerHTML = "No more guesses... " + (GameMode === "Daily" ? "Today" : "This round") + "'s plant is: " + TodaysPlant.EngName + ` <img src="images/Name/${TodaysPlant.EngName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;"> `;
+        $("judgmentText").innerHTML = "No more guesses... " + (GameMode === "Daily" ? "Today" : "This round") + "'s plant is: " + TodaysPlant.EngName + ` <img src="images/Name/${TodaysPlant.EngName.replaceAll(" ", "_")}.webp" alt"" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> `;
         sessionStorage.removeItem("CheckedShare");
         setTimeout(() => {
             SetBlock($("ShareButton"));
