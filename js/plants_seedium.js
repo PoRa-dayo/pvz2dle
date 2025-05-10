@@ -79,7 +79,7 @@ const oBombegranate = {
     Recharge: "Slow",
     RangeArea: "3x3",
     Special: "Seed Damage",
-    Usage: null,
+    Usage: "Single, Instant",
     Family: "Bombard-mint",
 };
 const oHotDate = {

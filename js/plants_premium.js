@@ -174,7 +174,7 @@ const oLavaGuava = {
     World: "Gemium",
     Recharge: "Mediocre",
     RangeArea: "Touch, 3x3, Tile",
-    Special: "Warming",
+    Special: "Warming, Lava Damage",
     Usage: "Single, On Contact",
     Family: "Pepper-mint",
 };
