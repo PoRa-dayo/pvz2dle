@@ -93,7 +93,7 @@ const oGraveBuster = {
     Recharge: "Mediocre",
     RangeArea: null,
     Special: null,
-    Usage: "On Gravestone",
+    Usage: "Single",
     Family: "Contain-mint",
 };
 const oBonkChoy = {
@@ -621,7 +621,7 @@ const oGarlic = {
     Recharge: "Fast",
     RangeArea: "Touch",
     Special: null,
-    Usage: "Single, Instant",
+    Usage: "Single",
     Family: "Ail-mint",
 };
 const oSporeShroom = {
