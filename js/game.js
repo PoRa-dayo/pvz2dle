@@ -281,7 +281,7 @@ function AddGuess(plantName, manual = false) {
     }
     if (GameMode === "Streak") {
         let NoOfGuesses = localStorage.StreakHunt_GuessedPlants?.length > 0 ? localStorage.StreakHunt_GuessedPlants.split(",").length : 0;
-        let Delta = ((8-Math.min(7,Math.floor(localStorage.StreakHunt_CurrentStreak/20))) - NoOfGuesses);
+        let Delta = ((8-Math.min(5,Math.floor(localStorage.StreakHunt_CurrentStreak/20))) - NoOfGuesses);
         $("TopText").innerHTML = "GUESS ROUND " + localStorage["StreakHunt_CurrentStreak"] + "'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
     } else {
         let NoOfGuesses = localStorage.GuessedPlants?.length > 0 ? localStorage.GuessedPlants.split(",").length : 0;
@@ -424,7 +424,7 @@ function AddGuess(plantName, manual = false) {
             }, EDAll);
         }
 
-    } else if (GuessedPlants.size >= (GameMode === "Streak" ? 8-Math.min(7,Math.floor(localStorage.StreakHunt_CurrentStreak/20)) : 8)) {
+    } else if (GuessedPlants.size >= (GameMode === "Streak" ? 8-Math.min(5,Math.floor(localStorage.StreakHunt_CurrentStreak/20)) : 8)) {
         SetNone(AnswerBox);
         SetBlock($("judgmentText"));
         $("judgmentText").innerHTML = "No more guesses... " + (GameMode === "Daily" ? "Today" : "This round") + "'s plant is: " + TodaysPlant.EngName + ` <img src="images/Name/${TodaysPlant.EngName.replaceAll(" ", "_")}.webp" alt="" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> `;
@@ -507,7 +507,7 @@ function SwitchToStreakHunt() {
         ClearChild($(`ContinueButton`));
         if (!localStorage.StreakHunt_CurrentStreak) localStorage.StreakHunt_CurrentStreak = "1";
         let NoOfGuesses = localStorage.StreakHunt_GuessedPlants?.length > 0 ? localStorage.StreakHunt_GuessedPlants.split(",").length : 0;
-        let Delta = ((8 - Math.min(7, Math.floor(localStorage.StreakHunt_CurrentStreak / 20))) - NoOfGuesses);
+        let Delta = ((8 - Math.min(5, Math.floor(localStorage.StreakHunt_CurrentStreak / 20))) - NoOfGuesses);
         $("TopText").innerHTML = "GUESS ROUND " + localStorage["StreakHunt_CurrentStreak"] + "'S PLANT! " + (Delta === 1 ? "LAST GUESS!" : (Delta + " GUESSES LEFT!"));
         if (!localStorage.StreakHunt_attemptSeed) {
             let number = '';
