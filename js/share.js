@@ -108,7 +108,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                 "I feel like that was the guess of '87.",
                 "I feel like jumpscaring PvZ fans with an anime girl!",
                 "I feel like spending 10 hours at PvZ Brutal EX Plus Hard Mode Total Death Edition.",
-                "I feel like making a clickbait video with Stardrop's meteors.",
+                "I feel like making a clickbait video with Magnetar's meteors.",
                 "I feel like any time, it's zombie time! (I better)",
                 "I feel like there's a zombie on your lawn.",
                 "I feel like I am the angry pumpkin.",
