@@ -146,6 +146,17 @@
     box-shadow: 1px 1px 0 #FBC663, inset 3px 3px 0.1px #77542F, inset -3px -3px 0.1px #77542F, -1px -1px 0.5px #FBC663;
 }
 
+@media (orientation: landscape) {
+    .dFlexWrap_PvZ2DleItem_Mobile {
+        height: 52%;
+    }
+}
+@media (orientation: portrait) {
+    .dFlexWrap_PvZ2DleItem_Mobile {
+        width: 70%;
+    }
+}
+
 .dGreenTop {
     background: linear-gradient(to top,#517E0B 40%, #7ABE0B 100%);
     border-radius:10px 10px 0px 0px;

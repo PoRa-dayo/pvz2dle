@@ -85,7 +85,7 @@ let FamilyList = {};
 })();
 
 showTxtCenter("TopText", 45,"GUESS TODAY'S PLANT!",1.5);
-showTxtCenter("judgmentText", 30,"placeholder", 2);
+showTxtCenter("judgmentText", 0,"placeholder", 1.7);
 SetNone($("judgmentText"));
 let TodaysPlant;
 
