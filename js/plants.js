@@ -740,7 +740,7 @@ const oBowlingBulb = {
     World: "Big Wave Beach",
     Recharge: "Fast",
     RangeArea: "Multi-Hit",
-    Special: "Bulb Recharge, Shot Bounces",
+    Special: "Arming Time (Mediocre), Shot Bounces",
     Usage: null,
     Family: "Appease-mint",
 };
