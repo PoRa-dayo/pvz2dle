@@ -162,7 +162,7 @@ const oZoybeanPod = {
     World: "Seedium",
     Recharge: "Sluggish",
     RangeArea: null,
-    Special: "Spawn Zomboids",
+    Special: "Summons",
     Usage: null,
     Family: "Enchant-mint",
 };
@@ -294,7 +294,7 @@ const oGumnut = {
     World: "Seedium",
     Recharge: "Mediocre",
     RangeArea: "Touch, Tile",
-    Special: "Spawn Barrier",
+    Special: "Barrier",
     Usage: "Wall (Very High)",
     Family: "Reinforce-mint",
 };
@@ -366,7 +366,7 @@ const oMurkadamiaNut = {
     World: "Seedium",
     Recharge: "Mediocre",
     RangeArea: "Touch",
-    Special: "Spawn Barrier, Regeneration, Mirror Damage",
+    Special: "Barrier, Regeneration, Mirror Damage",
     Usage: "Wall (High)",
     Family: "Conceal-mint",
 };
@@ -378,7 +378,7 @@ const oTurkeyPult = {
     World: "Seedium",
     Recharge: "Fast",
     RangeArea: "Lobbed",
-    Special: "Spawn Tofu Turkeys",
+    Special: "Summons",
     Usage: null,
     Family: "Arma-mint",
 };
@@ -462,7 +462,7 @@ const oBoomBalloonFlower = {
     World: "Seedium",
     Recharge: "Fast",
     RangeArea: "Full Board, Tile",
-    Special: "Firing Rate (Mediocre), Spawn Traps",
+    Special: "Firing Rate (Mediocre), Summons",
     Usage: "Tap to Aim",
     Family: "Bombard-mint",
 };
@@ -558,7 +558,7 @@ const oTigerGrass = {
     World: "Seedium",
     Recharge: "Fast",
     RangeArea: "4 Tiles Ahead",
-    Special: "Spawn Grass Tiger, Regeneration, Growth",
+    Special: "Summons, Regeneration, Growth",
     Usage: null,
     Family: "Enforce-mint",
 };

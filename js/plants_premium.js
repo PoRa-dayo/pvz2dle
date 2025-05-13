@@ -414,7 +414,7 @@ const oHollyBarrier = {
     World: "Premium",
     Recharge: "Fast",
     RangeArea: "Full Board, Touch, 3x3",
-    Special: "Knockback, Spawn Barrier",
+    Special: "Knockback, Barrier",
     Usage: "Tap to Aim, Wall (Elevated)",
     Family: "Reinforce-mint",
 };

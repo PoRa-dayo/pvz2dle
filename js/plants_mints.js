@@ -150,7 +150,7 @@ const oSpearMint = {
     World: "Power Mints",
     Recharge: "Very Slow",
     RangeArea: "Column 9, Full Board",
-    Special: "Spawn Spikerocks, Boost",
+    Special: "Summons, Boost",
     Usage: "Single, Instant",
     Family: "Spear-mint",
 };
