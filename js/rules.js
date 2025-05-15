@@ -21,7 +21,7 @@ let AlmanacButton = NewEle(`AlmanacButton`, 'div', `background: url(images/Alman
                 className: "CustomScroll",
             }, rulesShade);
             let tutorialTxt = NewEle("tutorialTxt", "center", `color:white;position:relative;font-size:15px;width:75%;display:inline-block;`, {
-                innerHTML: "You are expected to have played through the original PvZDle and know the basic rules.<br/>If search results are not found for Name, then World and Family will be considered.<br/>You have 8 guesses. Every time you guess, you'll see these colors on the stat cards:",
+                innerHTML: "Type to search and choose a search result to guess.<br/>If search results are not found for Name, then World and Family will be considered.<br/><br/>You have 8 guesses. Every time you guess, you'll see these colors on the stat cards, based on how close they are to the Correct plant:",
             }, TheRules);
             tutorialTxt.style.textShadow = txtshadow;
             let ExampleList = NewEle(`ExampleList`, 'div', 'position:relative;height:65px;top:0px;left:0%;width:22.2em;background:none;border:none;box-shadow:none;grid-template-columns: repeat(3, 110px);gap:5px;', {
