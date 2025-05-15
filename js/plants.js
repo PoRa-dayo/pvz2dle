@@ -92,7 +92,7 @@ const oGraveBuster = {
     World: "Ancient Egypt",
     Recharge: "Mediocre",
     RangeArea: null,
-    Special: null,
+    Special: "Destroy Objects",
     Usage: "Single",
     Family: "Contain-mint",
 };
@@ -320,7 +320,7 @@ const oHotPotato = {
     World: "Frostbite Caves",
     Recharge: "Mediocre",
     RangeArea: "Single",
-    Special: null,
+    Special: "Destroy Objects",
     Usage: "Single, Instant",
     Family: "Pepper-mint",
 };
