@@ -40,7 +40,7 @@ const oBloomingHeart = {
     SunNum: 150,
     Attack: "Variable",
     World: "Seedium",
-    Recharge: "Mediocre",
+    Recharge: "Fast",
     RangeArea: "Lobbed",
     Special: "Stackable Damage",
     Usage: null,
