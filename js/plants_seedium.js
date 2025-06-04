@@ -49,7 +49,7 @@ const oBloomingHeart = {
 const oExplodeONut = {
     CodeName: "oExplodeONut",
     EngName: "Explode-O-Nut",
-    SunNum: 150,
+    SunNum: 50,
     Attack: "Massive",
     World: "Seedium",
     Recharge: "Mediocre",
