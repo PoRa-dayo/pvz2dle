@@ -412,7 +412,7 @@ const oHollyBarrier = {
     SunNum: 150,
     Attack: "Normal",
     World: "Premium",
-    Recharge: "Fast",
+    Recharge: "Mediocre",
     RangeArea: "Full Board, Touch, 3x3",
     Special: "Knockback, Barrier",
     Usage: "Tap to Aim, Wall (Elevated)",
