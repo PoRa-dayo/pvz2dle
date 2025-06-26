@@ -79,7 +79,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                 "I feel so skibidi!",
                 "I feel so purple X.",
                 "I feel so Sun.png.",
-                "I feel so <MISSING_PVZ2DLE_DESCRIPTION_HEADER>.",
+                "I feel so <Missing PVZ2DLE_DESCRIPTION_HEADER>.",
                 "I feel so surprise mechanics.",
                 "I feel so fire in the hole!",
                 "I feel like I know exactly what's different about the Newspaper Zombie!",
