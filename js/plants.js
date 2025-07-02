@@ -176,7 +176,7 @@ const oSpringBean = {
     World: "Pirate Seas",
     Recharge: "Sluggish",
     RangeArea: "Touch, Single",
-    Special: "Knockback, Recovery (Normal)",
+    Special: "Knockback, Arming Time (Mediocre)",
     Usage: null,
     Family: "Contain-mint",
 };
