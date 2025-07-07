@@ -620,7 +620,7 @@ const oGarlic = {
     World: "Neon Mixtape Tour",
     Recharge: "Fast",
     RangeArea: "Touch",
-    Special: null,
+    Special: "Redirection",
     Usage: "Single",
     Family: "Ail-mint",
 };

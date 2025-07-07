@@ -90,7 +90,7 @@ const oHotDate = {
     World: "Seedium",
     Recharge: "Sluggish",
     RangeArea: "1x3",
-    Special: null,
+    Special: "Redirection",
     Usage: "Wall (Elevated), On Death",
     Family: "Pepper-mint",
 };

@@ -126,7 +126,7 @@ const oSweetPotato = {
     World: "Gemium",
     Recharge: "Sluggish",
     RangeArea: "1x3",
-    Special: null,
+    Special: "Redirection",
     Usage: "Wall (High)",
     Family: "Reinforce-mint",
 };
@@ -306,7 +306,7 @@ const oElectricCurrant = {
     World: "Gemium",
     Recharge: "Mediocre",
     RangeArea: "Lane & Column",
-    Special: null,
+    Special: "Redirection",
     Usage: null,
     Family: "Fila-mint",
 };
