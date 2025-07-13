@@ -143,7 +143,7 @@ const oEffects = {
         });
     },
     //NOTE: clip-path does NOT work with effectType 'animation' for some reason
-    Animate(ele, properties, duration = 0.4, ease = 'linear', callback, delay = 0, iterationCount = 1, effectType = 'animation') {
+    Animate(ele, properties, duration = 0.4, ease = 'linear', callback, delay = 0, iterationCount = 1, effectType = 'transition') {
         if(!ele){
             console.warn('Element does not exist!');
             return;
