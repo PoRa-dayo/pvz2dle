@@ -3,7 +3,7 @@ async function Transition(duration=1, MidCallback,EndCallback, text="") {
     if (!sessionStorage["First_Start"]) {
         const promiseArray = [];
         const imageArray = [];
-        const ImgToPreload = ["images/Transition.png", "images/PvZ2Dle_Logo_PvZ.png", "images/PvZ2Dle_Logo_DLE.png", "images/PvZ2Dle_Logo_2.png"]
+        const ImgToPreload = ["images/PvZ2Dle_Logo_PvZ.png", "images/PvZ2Dle_Logo_DLE.png", "images/PvZ2Dle_Logo_2.png"]
         for (let imageUrl of ImgToPreload) {
             promiseArray.push(new Promise(resolve => {
                 const img = new Image();
