@@ -78,7 +78,7 @@ function TimeAttack_Rules() {
             You are also rewarded with more time for guessing a plant correctly with few guesses.<br/><br/>
             TIME PENALTIES:<br/>
             "Oops..." is given when a stat, whose Partially Correct value is already known, is guessed Wrong. (e.g. if DAMAGE: Normal is known to be Partially Correct, and you guess DAMAGE: Huge (which is Wrong) for your next guess)<br/>
-            "BLUNDER!!!" is given when a stat, whose Correct value is already known, is guessed Partially Correct or Wrong. (e.g. if WORLD: Player's House is known to be Correct, and you guess anything else (which can be Partially Correct or Wrong) for your next guess)<br/>
+            "BLUNDER!!!" is given when a stat, whose Correct value is already known, is guessed Partially Correct or Wrong. (e.g. if WORLD: Player's House is known to be Correct, and you guess anything else for WORLD (which can be Partially Correct or Wrong) for your next guess)<br/>
             "BLUNDER!!!" is also given if an exact value of a stat that is known to be Wrong or Partially Correct is guessed again. (e.g. if FAMILY: Pepper-mint is known to be Wrong, and you guess FAMILY: Pepper-mint again in your next guess)<br/><br/>
             Remember, in PvZ2Dle, memorization of plant stats is not as important. Good understanding of the rules and your skills of searching and comparing information is key to guessing plants correctly! Now go protect that Wall-nut and defend the magic for as long as you can!`,
         }, TheRules);
