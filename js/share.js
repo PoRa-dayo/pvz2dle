@@ -34,18 +34,33 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
             let shareTxt = NewEle("tutorialTxt", "center", `color:white;position:relative;font-size:22px;width:75%;display:inline-block;`, {
                 innerHTML: "Copy using the button below.",
             }, TheShare);
-            tutorialTxt.style.textShadow = txtshadow;
+            shareTxt.style.textShadow = txtshadow;
             let GuessList = NewEle("GuessList", "center", `color:white;position:relative;font-size:15px;width:75%;display:inline-block;`, {}, TheShare);
-            let ResultsObj = JSON.parse(localStorage[(localStorage.FinalResult === "Streak" ? "StreakHunt_" : "") + "GuessResults"]);
+            let ResultsObj;
+            if (localStorage.FinalResult !== "Time") {
+                ResultsObj = JSON.parse(localStorage[(localStorage.FinalResult === "Streak" ? "StreakHunt_" : "") + "GuessResults"]);
+            }
             let ind = 0;
             let NumberArr = ["0", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣"];
             let ResultStr = "";
-            for (let plantName in ResultsObj) {
-                ResultStr += NumberArr[++ind];
-                for (let result of ResultsObj[plantName]) {
-                    ResultStr += (result === 1 ? `🟩` : (result === 2 ? `🟨` : `🟥`));
+            if (localStorage.FinalResult !== "Time") {
+                for (let plantName in ResultsObj) {
+                    ResultStr += NumberArr[++ind];
+                    for (let result of ResultsObj[plantName]) {
+                        ResultStr += (result === 1 ? `🟩` : (result === 2 ? `🟨` : `🟥`));
+                    }
+                    ResultStr += `<br/>`;
                 }
-                ResultStr += `<br/>`;
+            } else {
+                GuessList.style["font-size"]="22px";
+                GuessList.style["text-shadow"] = txtshadow;
+                NumberArr = JSON.parse(TimeAttackStorage["TimeAttack_FullRunGuessResults"]);
+                ResultStr = NumberArr.join("➡️");
+                let totalSeconds = (Number(TimeAttackStorage["TimeAttack_finishTime"]) - Number(TimeAttackStorage["TimeAttack_startTime"])) / 1000;
+                let minutes = Math.floor(totalSeconds / 60);
+                let seconds = Math.floor(totalSeconds % 60);
+                let PowerUpsObj = JSON.parse(TimeAttackStorage["TimeAttack_PowerUpsUsed"]);
+                ResultStr += `<br/>Time elapsed: ${minutes}m ${seconds}s<br/>Max Chain: x${TimeAttackStorage["TimeAttack_MaxChainBonusInRun"]}<br/>Blunders: ${TimeAttackStorage["TimeAttack_BlundersInRun"]}<br/>Power-Ups Used:<br/>"Help Me, Penny!" x${PowerUpsObj["PennyPU"]}<br/>"Skip Current Plant" x${PowerUpsObj["SkipPlantPU"]}<br/>"Incorrect Buzzer" x${PowerUpsObj["IncorrectBuzzerPU"]}<br/>`;
             }
             GuessList.innerHTML += ResultStr;
             let tutorialTxt2 = NewEle("tutorialTxt2", "center", `color:white;position:relative;font-size:22px;width:75%;display:inline-block;opacity:0;`, {
@@ -65,6 +80,10 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                 }
                 case "Streak": {
                     IntroShareStr = "I got to " + localStorage["StreakHunt_CurrentStreak"] + " streaks in PvZ2Dle's Streak Hunt Mode! ";
+                    break;
+                }
+                case "Time": {
+                    IntroShareStr = "I made " + TimeAttackStorage["TimeAttack_CorrectGuesses"] + " correct guesses out of " + TimeAttackStorage["TimeAttack_NoOfGuessesInRun"] +` guesses in PvZ2Dle's ${sessionStorage["TimeAttack_FreePlay"] ? `Free Play` : (getFormattedDate() + "'s")} Time Challenge! `;
                     break;
                 }
                 default: {
@@ -99,6 +118,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                 "I feel so buble.",
                 "I feel so what is up guys, Zack Scott here playing Plants vs. Zombies.",
                 "I feel so CRAAAAAZZYYYYY!!!",
+                "I feel so | || || |_.",
                 "I feel like Creeps20's fellow citizen.",
                 "I feel like ItsP's S-4 fail montage.",
                 "I feel like I'm enjoying Zants vs. Plombies again!",
@@ -141,6 +161,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                 "I feel like PvZ2Dle is taking a weird route right now.",
                 "I feel like Steve Harvey.",
                 "I feel like Shaq.",
+                "I feel like reaching Addendum's End.",
                 "I feel like frying 'em up.",
                 "I-",
                 "I-",
@@ -148,6 +169,9 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
             IntroShareStr += BonusIntroArr[Math.floor(Math.seededRandomV2(BonusIntroArr.length - 1, 0))];
             if (localStorage.FinalResult === "Streak") {
                 IntroShareStr += " This is what ended my run:";
+            }
+            if (localStorage.FinalResult === "Time") {
+                IntroShareStr += " This is how many guesses I spent per round:";
             }
             let FinalStr = IntroShareStr + `<br/>` + ResultStr + `Play PvZ2Dle here:<br/>https://pora-dayo.github.io/pvz2dle/`;
             NewEle(`CopyButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;left:0px;width:150px;height:67px;font-size:25px;padding-top:35px;`, {
@@ -162,9 +186,9 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                     });
                 }
             }, TheShare);
-            if (/Won|Lost/.test(localStorage.FinalResult)) {
+            if (/Won|Lost/.test(localStorage.FinalResult) || (/Time/.test(localStorage.FinalResult) && !sessionStorage["TimeAttack_FreePlay"])) {
                 let tutorialTxt3 = NewEle("tutorialTxt3", "center", `color:white;position:relative;font-size:22px;width:75%;display:inline-block;`, {
-                    innerHTML: `Remember, everyone gets the same plant each day, so don't spoil the answer!<br/><br/>Next challenge in:`,
+                    innerHTML: `Remember, everyone gets the same plant${localStorage["FinalResult"]==="Time"?"s":""} each day, so don't spoil the answer!<br/><br/>Next challenge in:`,
                 }, TheShare);
                 tutorialTxt3.style.textShadow = txtshadow;
                 let today = new Date();
@@ -188,7 +212,7 @@ let ShareButton = NewEle(`ShareButton`, 'div', `background: url(images/Share_But
                     let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                     // Display the result
-                    tutorialTxt3.innerHTML = `Remember, everyone gets the same plant each day, so don't spoil the answer!<br/><br/>Next challenge in:<br/>` + hours + "h "
+                    tutorialTxt3.innerHTML = `Remember, everyone gets the same plant${localStorage["FinalResult"]==="Time"?"s":""} each day, so don't spoil the answer!<br/><br/>Next challenge in:<br/>` + hours + "h "
                         + minutes + "m " + seconds + "s ";
 
                     // If the count down is finished, write some text

@@ -19,7 +19,7 @@ function ShowNews() {
                 className: "CustomScroll",
             }, newsShade);
             let tutorialTxt = NewEle("tutorialTxt", "center", `color:white;position:relative;font-size:18px;width:75%;display:inline-block;`, {
-                innerHTML: `Expansion II of PvZ2Dle has arrived! Now Seediums (up to Bramble Bush) and Power Mints are there in the plant list! And new UI, you know, just wanna do something with the little CSS and photoshopping knowledge I have.<br/>Some plants' stat display has also been overhauled. (e.g. Shadow-shroom's poison now counts towards the DAMAGE stat instead of dealing no damage).<br/><br/>Also added a feature where guessed stats will show their colors in the search results like in the OG Wordle, because oh my god is the extended plant list big (btw, wrong stats will not show on the search results, you still gotta do the comparison yourself because that's the gameplay smh).`,
+                innerHTML: `Yep, PvZ2Dle has been updated with Expansion III! Now with some new features and A BRAND NEW GAME MODE: TIME ATTACK! Please be aware that a run on this mode might take 10+ minutes, so be prepared before you start one. I added a bunch of new stuff to this game mode so there will be a bunch of bugs. If you're on a Discord server that has me in it feel free to ping me if you find something wrong. Enjoy the silly animations!<br/><br/>Now if I have a nickel for every time I tried to make a puzzle-y game into an action-packed time-based one...`,
             }, TheNews);
             tutorialTxt.style.textShadow = txtshadow;
         });

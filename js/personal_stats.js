@@ -1,5 +1,5 @@
 "use strict";
-let LogButton = NewEle(`LogButton`, 'div', `background: url(images/Personal_Stats_Button.png) no-repeat center center; background-size: contain;position:absolute;top:0px;right:70px;width:${IsMobile?50:60}px;height:${IsMobile?50:60}px;z-index:400;`, {
+let LogButton = NewEle(`LogButton`, 'div', `background: url(images/Personal_Stats_Button.png) no-repeat center center; background-size: contain;position:absolute;top:0px;right:60px;width:${IsMobile?50:60}px;height:${IsMobile?50:60}px;z-index:400;`, {
     className: "Button",
     onclick: () => {
         let statsShade = NewEle("statsShade","div","position:absolute;left:0;top:0;width:100%;height:100%;z-index:1008;background:rgba(0,0,0,0.8);opacity:0;",{},EDAll);
@@ -19,7 +19,9 @@ let LogButton = NewEle(`LogButton`, 'div', `background: url(images/Personal_Stat
                 className: "CustomScroll",
             }, statsShade);
             let tutorialTxt = NewEle("tutorialTxt", "center", `color:white;position:relative;font-size:18px;width:75%;display:inline-block;`, {
-                innerHTML: `DAILY CHALLENGE<br/>Total Guesses: ${localStorage["TotalGuesses"]}<br/>Total Wins: ${localStorage["TotalWins"]}<br/>------------<br/>STREAK HUNT<br/>Total Guesses: ${localStorage["StreakHunt_TotalGuesses"]}<br/>Total Wins: ${localStorage["StreakHunt_TotalWins"]}<br/>Highest Streak: ${localStorage["StreakHunt_HighestStreak"]}`,
+                innerHTML: `DAILY CHALLENGE<br/>Total Guesses: ${localStorage["TotalGuesses"]}<br/>Total Wins: ${localStorage["TotalWins"]}<br/>
+------------<br/>STREAK HUNT<br/>Total Guesses: ${localStorage["StreakHunt_TotalGuesses"]}<br/>Total Wins: ${localStorage["StreakHunt_TotalWins"]}<br/>Highest Streak: ${localStorage["StreakHunt_HighestStreak"]}<br/>
+------------<br/>TIME ATTACK<br/>Total Runs: ${localStorage["TimeAttack_TotalRuns"]}<br/>Total Guesses: ${localStorage["TimeAttack_TotalGuesses"]}<br/>Total Correct Guesses: ${localStorage["TimeAttack_TotalCorrectGuesses"]}<br/>Max Correct Guesses Per Run: ${localStorage["TimeAttack_HighestCorrectGuessesPerRun"]}<br/>Total x10 Chains: ${localStorage["TimeAttack_Total10Chains"]}<br/>Total Blunders: ${localStorage["TimeAttack_TotalBlunders"]}`,
             }, TheStats);
             tutorialTxt.style.textShadow = txtshadow;
         });

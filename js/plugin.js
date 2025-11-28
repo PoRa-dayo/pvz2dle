@@ -54,10 +54,87 @@ const NewEle = function(id, tag, cssText, properties, wrap) { //创建新元素
     wrap && wrap.appendChild(ele);
     return ele;
 };
+function linearMapping(x, minIn,maxIn,minOut,maxOut) {
+    return minOut + (maxOut - minOut) * (x - minIn) / (maxIn - minIn);
+}
+let endTime;
+function Countdown(duration, onTick, onEnd, SetEndTime = null) {
+    if (!TimeAttackStorage["TimeAttack_startTime"]) {
+        TimeAttackStorage.setItem("TimeAttack_startTime",Date.now()+"");
+        console.log(TimeAttackStorage["TimeAttack_startTime"]);
+    }
+    endTime = SetEndTime ?? Date.now() + duration * 1000;
+    endTime = Number(endTime);
+    let alreadyEnded= (Math.max(0, endTime - Date.now()) <= 0);
+    const interval = setInterval(() => {
+        if (endTime - Date.now() > 300000) {
+            //cannot add more than 5 minutes
+            endTime = 300000 + Date.now();
+        }
+        TimeAttackStorage.setItem("TimeAttack_endTime",endTime+"");
+        const remaining = Math.max(0, endTime - Date.now());
+        const totalSeconds = Math.ceil(remaining / 1000);
+
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+
+        const display = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+        onTick(display);
+
+        if ($("Projectile")) {
+            $("Projectile").style.left = linearMapping(remaining, 0, duration*1000, 10, 80) + "%";
+        }
+
+        if (remaining <= 15000) {
+            LastWarning(true);
+        } else {
+            LastWarning(false);
+        }
+
+        if (remaining <= 0 || isNaN(endTime)) {
+            clearInterval(interval);
+            LastWarning(false);
+            if ($("Projectile")) {
+                $("Projectile").style.left = "10%";
+            }
+            if (!TimeAttackStorage["TimeAttack_finishTime"]) {
+                TimeAttackStorage.setItem("TimeAttack_finishTime",Date.now()+"");
+            }
+            GuessingListDOM.style.opacity="0";
+            SetNone(searchShade);
+            ClearChild($("spamShade"));
+            if (alreadyEnded) {
+                ClearChild($("JustADOM"));
+                TimeAttack_OutroAnim(() => {
+                    onEnd(alreadyEnded);
+                });
+            } else {
+                TimeAttack_OutroAnim(() => {
+                    onEnd(alreadyEnded);
+                });
+            }
+        }
+    }, 100);
+}
+
 Reflect.defineProperty(Array.prototype, 'random', {  //从数组中随机抽取一个元素
     enumerable: false,
     value() {
         return this[Number.parseInt(Math.random() * this.length)];
+    },
+});
+Reflect.defineProperty(Array.prototype, 'shuffle', {  //随机打乱数组
+    enumerable: false,
+    value() {
+        const self = this;
+        const rightIndex = self.length - 1;
+        self.forEach((value, index) => {
+            if (index !== rightIndex) {
+                const randomIndex = Math.floor(Math.random() * (rightIndex - index)) + index + 1;
+                [self[index], self[randomIndex]] = [self[randomIndex], self[index]];
+            }
+        });
+        return self;
     },
 });
 const NewImg = function(id, src, cssText, wrap, properties) { //创建新图片

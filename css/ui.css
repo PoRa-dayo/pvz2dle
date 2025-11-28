@@ -181,10 +181,10 @@
     transition: filter .2s;
 }
 .Button:hover {
-    filter:brightness(110%);
+    filter:brightness(120%);
 }
 .Button:active {
-    filter:brightness(90%);
+    filter:brightness(80%);
 }
 a:-webkit-any-link {
     color:deepskyblue;
@@ -261,6 +261,43 @@ a:-webkit-any-link {
     outline: 0.5px solid #b1ab91;
 }
 
+.rainbow-text {
+    background: repeating-linear-gradient(
+            0deg,
+            red,
+            orange,
+            yellow,
+            green,
+            blue,
+            indigo,
+            violet,
+            red,
+            orange,
+            yellow,
+            green,
+            blue,
+            indigo,
+            violet,
+            red
+    );
+    background-size:800% 800%;
+    -webkit-background-clip: text; /* For Webkit browsers like Chrome and Safari */
+    background-clip: text;
+    color: transparent;
+}
+
+@keyframes rainbow-scroll {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 25%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 @keyframes ButtonBlink{
     0%{
         filter:brightness(100%);
@@ -317,4 +354,88 @@ a:-webkit-any-link {
 @keyframes descendBoardContent {
     0% { top: -50%; }
     100% { top: 20%; }
+}
+
+@keyframes warningFlash {
+    0% { opacity: 0%; }
+    50% { opacity: 100%; }
+    100% { opacity: 0%; }
+}
+
+@keyframes shaking {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(2px, 2px); }
+    50% { transform: translate(-2px, 0); }
+    75% { transform: translate(2px, -2px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes shakingScale03 {
+    0% { transform: scale(0.3) translate(0, 0); }
+    25% { transform: scale(0.3) translate(2px, 2px); }
+    50% { transform: scale(0.3) translate(-2px, 0); }
+    75% { transform: scale(0.3) translate(2px, -2px); }
+    100% { transform: scale(0.3) translate(0, 0); }
+}
+
+@keyframes shakingScale5 {
+    0% { transform: scale(5) translate(0, 0); }
+    25% { transform: scale(5) translate(2px, 2px); }
+    50% { transform: scale(5) translate(-2px, 0); }
+    75% { transform: scale(5) translate(2px, -2px); }
+    100% { transform: scale(5) translate(0, 0); }
+}
+
+@keyframes wagRotation {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes bounce {
+    /* start at top */
+    0% {
+        transform: translateY(-100%);
+        animation-timing-function: cubic-bezier(.4, 0, 1, 1);   /* ease-in fall */
+    }
+    /* first fall */
+    25% {
+        transform: translateY(0%);
+        animation-timing-function: cubic-bezier(0, 0, .2, 1);   /* ease-out rise */
+    }
+
+    /* bounce 1 */
+    40% {
+        transform: translateY(-40%);
+        animation-timing-function: cubic-bezier(.4, 0, 1, 1);   /* ease-in fall */
+    }
+    55% {
+        transform: translateY(0%);
+        animation-timing-function: cubic-bezier(0, 0, .2, 1);   /* ease-out rise */
+    }
+
+    /* bounce 2 */
+    67% {
+        transform: translateY(-20%);
+        animation-timing-function: cubic-bezier(.4, 0, 1, 1);   /* ease-in fall */
+    }
+    77% {
+        transform: translateY(0%);
+        animation-timing-function: cubic-bezier(0, 0, .2, 1);   /* ease-out rise */
+    }
+
+    /* bounce 3 */
+    85% {
+        transform: translateY(-7%);
+        animation-timing-function: cubic-bezier(.4, 0, 1, 1);   /* ease-in fall */
+    }
+    92% {
+        transform: translateY(0%);
+        animation-timing-function: cubic-bezier(0, 0, .2, 1);   /* ease-out rise */
+    }
+
+    /* final rest */
+    100% {
+        transform: translateY(0%);
+    }
 }

@@ -10,13 +10,16 @@
 <link rel="preload" as="image" href="images/PvZ2Dle_Logo_DLE.png">
 <link rel="preload" as="image" href="images/PvZ2Dle_Logo_2.png">
 <body>
-    <div id="dAll" class="WindowFrame" style="background:url(images/background.png) no-repeat center center fixed;
+    <div id="dBG" class="WindowFrame" style="background:url(images/background.png) no-repeat center center fixed;
     background-size:cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+    filter:brightness(80%);
     height:100%;
-    width:100%;pointer-events:none;"><img src="images/PvZ2Dle_Logo.png" alt="PvZ2Dle" style="display:block;width:100px;margin:auto;z-index:10;"></div>
+    width:100%;"></div>
+    <div id="dAll" class="WindowFrame" style="height:100%;width:100%;pointer-events:none;">
+    <img src="images/PvZ2Dle_Logo.png" alt="PvZ2Dle" style="display:block;width:100px;margin:auto;z-index:10;"></div>
 </body>
 
 <script src="js/plugin.js"></script>
@@ -27,6 +30,8 @@
 <script src="js/plant_list.js"></script>
 <script src="js/transition.js"></script>
 <script src="js/game.js"></script>
+<script src="js/abilities.js"></script>
+<script src="js/bg_switch.js"></script>
 <script src="js/rules.js"></script>
 <script src="js/share.js"></script>
 <script src="js/credits.js"></script>
