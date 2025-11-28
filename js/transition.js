@@ -224,7 +224,7 @@ function TimeAttack_IntroAnim(callback) {
                     "left": "100%"
                 }, "fast", "ease-in", () => {
                     ClearChild(WizardDOM);
-                    ZoomingText([`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`BAZINGA!`,`SPONGEBOB!`, `CUBERRY!`, `<Missing INTRO_MESSAGE>`].random(),1,5);
+                    ZoomingText([`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`BAZINGA!`,`SPONGEBOB!`, `CUBERRY!`, `Missing INTRO_MESSAGE`].random(),1,5);
                     setTimeout(() => {
                         callback && callback();
                     }, 1000);

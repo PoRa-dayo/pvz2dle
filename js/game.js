@@ -821,7 +821,7 @@ function SwitchToTimeAttack(midrun = false, freeplay = false) {
         }, EDAll);
         NewEle(`PennyPU`, 'div', `background: url(images/Power-Ups/Penny.png) no-repeat center center; background-size: contain;position:absolute;bottom:20px;right:10px;width:${IsMobile?50:60}px;height:${IsMobile?50:60}px;text-align:center;text-shadow:${txtshadow};color:white;`, {
             className: "Button",
-            innerText: "60s",
+            innerText: "-60s",
             onclick: () => {
                 PennyHelp();
                 let PowerUpsObj = JSON.parse(TimeAttackStorage["TimeAttack_PowerUpsUsed"]);
@@ -831,7 +831,7 @@ function SwitchToTimeAttack(midrun = false, freeplay = false) {
         }, Handler);
         NewEle(`SkipPlantPU`, 'div', `background: url(images/Power-Ups/SkipPlant.png) no-repeat center center; background-size: contain;position:absolute;bottom:90px;right:10px;width:${IsMobile?50:60}px;height:${IsMobile?50:60}px;text-align:center;text-shadow:${txtshadow};color:white`, {
             className: "Button",
-            innerText: "25s",
+            innerText: "-25s",
             onclick: () => {
                 SkipPlant();
                 let PowerUpsObj = JSON.parse(TimeAttackStorage["TimeAttack_PowerUpsUsed"]);
@@ -841,7 +841,7 @@ function SwitchToTimeAttack(midrun = false, freeplay = false) {
         }, Handler);
         NewEle(`IncorrectBuzzerPU`, 'div', `background: url(images/Power-Ups/IncorrectBuzzer.png) no-repeat center center; background-size: contain;position:absolute;bottom:170px;right:10px;width:${IsMobile?50:60}px;height:${IsMobile?50:60}px;text-align:center;text-shadow:${txtshadow};color:white`, {
             className: "Button",
-            innerText: "35s",
+            innerText: "-35s",
             onclick: () => {
                 IncorrectBuzzer();
                 let PowerUpsObj = JSON.parse(TimeAttackStorage["TimeAttack_PowerUpsUsed"]);
@@ -880,13 +880,13 @@ function SwitchToTimeAttack(midrun = false, freeplay = false) {
                 onclick: () => {
                     $("TopText").innerHTML = `3:00`;
                     SetNone($("DailyChallengeButton"),$("judgmentText"));
-                    ClearChild(BeginButton);
+                    ClearChild(BeginButton, ContinueButton);
                     ResetEffects();
                     ClearChild($("InstructionsPU"));
                     localStorage.setItem("TimeAttack_TotalRuns", (Number(localStorage["TimeAttack_TotalRuns"]) + 1) + "");
                     if (sessionStorage["TimeAttack_FreePlay"]) {
                         TimeAttack_IntroAnimFast();
-                        ZoomingText([`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`BAZINGA!`,`SPONGEBOB!`, `CUBERRY!`, `<Missing INTRO_MESSAGE>`].random(),1,5);
+                        ZoomingText([`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`GO!`,`BAZINGA!`,`SPONGEBOB!`, `CUBERRY!`, `Missing INTRO_MESSAGE`].random(),1,5);
                         StartTimer();
                         Handler.style["pointer-events"] = "";
                         TimeAttackStorage.setItem("TimeAttack_FullRunGuessResults",'[0]');
@@ -901,6 +901,13 @@ function SwitchToTimeAttack(midrun = false, freeplay = false) {
                     }
                 }
             }, EDAll);
+            let ContinueButton = NewEle(`ContinueButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;bottom:50%;width:150px;height:50px;font-size:25px;text-align:center;padding-top:20px;margin:auto;transform:scale(0.8);`, {
+                className: "Button",
+                innerText: "RULES",
+                onclick: () => {
+                    TimeAttack_Rules();
+                }
+            }, EDAll);
 
         }
     }, () => {
@@ -909,6 +916,7 @@ function SwitchToTimeAttack(midrun = false, freeplay = false) {
         } else {
             if (TimeAttackStorage.TimeAttack_FullRunGuessResults) {
                 TimeAttack_IntroAnimFast();
+                ClearChild($("ContinueButton"));
                 StartTimer(localStorage["TimeAttack_endTime"]);
                 SetBlock(AnswerBox, RandomButton);
                 ClearChild($("BeginButton"),$("InstructionsPU"));
