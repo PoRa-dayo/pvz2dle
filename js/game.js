@@ -874,7 +874,7 @@ function SwitchToTimeAttack(midrun = false, freeplay = false) {
         TimeAttackStorage.setItem("TimeAttack_GuessProgress",'[0,0,0,0,0,0,0,0,0]');
         if (!midrun) {
             SetNone(AnswerBox, RandomButton);
-            let BeginButton = NewEle(`BeginButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;bottom:25%;width:150px;height:50px;font-size:25px;text-align:center;padding-top:20px;margin:auto;`, {
+            let BeginButton = NewEle(`BeginButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;bottom:20%;width:150px;height:50px;font-size:25px;text-align:center;padding-top:20px;margin:auto;`, {
                 className: "Button",
                 innerText: "LET'S ROCK!",
                 onclick: () => {
@@ -901,7 +901,7 @@ function SwitchToTimeAttack(midrun = false, freeplay = false) {
                     }
                 }
             }, EDAll);
-            let ContinueButton = NewEle(`ContinueButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;bottom:50%;width:150px;height:50px;font-size:25px;text-align:center;padding-top:20px;margin:auto;transform:scale(0.8);`, {
+            let ContinueButton = NewEle(`ContinueButton`, 'div', `background: url(images/Purple_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 150px auto;position:relative;bottom:55%;width:150px;height:50px;font-size:25px;text-align:center;padding-top:20px;margin:auto;transform:scale(0.8);`, {
                 className: "Button",
                 innerText: "RULES",
                 onclick: () => {
