@@ -940,29 +940,29 @@ if (localStorage.CurrentGameMode === "Daily") {
     SwitchToTimeAttack();
 }
 
-let DailyChallengeButton = NewEle(`DailyChallengeButton`, 'div', `background: url(images/Blue_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Time" ? "block" : "none"}`, {
+let DailyChallengeButton = NewEle(`DailyChallengeButton`, 'div', `background: url(images/Blue_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Streak" ? "block" : "none"}`, {
     className: "Button",
     innerText: "ENTER DAILY CHALLENGE MODE",
     onclick: () => {
         SetNone(DailyChallengeButton);
-        SetBlock(StreakHuntButton);
+        SetBlock(TimeAttackButton);
         SwitchToDailyChallenge();
     }
 }, EDAll);
-let StreakHuntButton = NewEle(`StreakHuntButton`, 'div', `background: url(images/Gold_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Daily" ? "block" : "none"}`, {
+let StreakHuntButton = NewEle(`StreakHuntButton`, 'div', `background: url(images/Gold_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Time" ? "block" : "none"}`, {
     className: "Button",
     innerText: "ENTER STREAK HUNT MODE",
     onclick: () => {
-        SetBlock(TimeAttackButton);
+        SetBlock(DailyChallengeButton);
         SetNone(StreakHuntButton);
         SwitchToStreakHunt();
     }
 }, EDAll);
-let TimeAttackButton = NewEle(`TimeAttackButton`, 'div', `background: url(images/Red_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Streak" ? "block" : "none"}`, {
+let TimeAttackButton = NewEle(`TimeAttackButton`, 'div', `background: url(images/Red_Button.png) no-repeat center center; color:white; text-shadow:${txtshadow};background-size: 8em auto;position:absolute;left:0;top:0;width:8em;height:auto;font-size:${IsMobile ? "3vw" : "25px"};text-align:center;padding-top:1em;z-index:400;display:${GameMode === "Daily" ? "block" : "none"}`, {
     className: "Button",
     innerText: "ENTER TIME ATTACK MODE",
     onclick: () => {
-        SetBlock(DailyChallengeButton);
+        SetBlock(StreakHuntButton);
         SetNone(TimeAttackButton);
         SwitchToTimeAttack();
     }
