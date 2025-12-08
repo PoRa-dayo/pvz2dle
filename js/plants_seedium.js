@@ -89,9 +89,9 @@ const oHotDate = {
     Attack: "Huge",
     World: "Seedium",
     Recharge: "Sluggish",
-    RangeArea: "1x3",
+    RangeArea: "1x3, Lane",
     Special: "Redirection",
-    Usage: "Wall (Elevated), On Death",
+    Usage: "Wall (Elevated), On Eaten",
     Family: "Pepper-mint",
 };
 const oSolarTomato = {
