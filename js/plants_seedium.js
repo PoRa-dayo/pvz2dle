@@ -565,7 +565,7 @@ const oTigerGrass = {
 const oTeleportatoMine = {
     CodeName: "oTeleportatoMine",
     EngName: "Teleportato Mine",
-    SunNum: 150,
+    SunNum: 75,
     Attack: "Massive",
     World: "Seedium",
     Recharge: "Sluggish",
