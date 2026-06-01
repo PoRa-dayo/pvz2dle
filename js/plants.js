@@ -618,7 +618,7 @@ const oGarlic = {
     SunNum: 50,
     Attack: null,
     World: "Neon Mixtape Tour",
-    Recharge: "Mediocre",
+    Recharge: "Sluggish",
     RangeArea: "Touch",
     Special: "Redirection",
     Usage: "Single",
