@@ -280,7 +280,7 @@ const oUltomato = {
     SunNum: 250,
     Attack: "Massive",
     World: "Seedium",
-    Recharge: "Mediocre",
+    Recharge: "Fast",
     RangeArea: "Straight",
     Special: "Varied Cost, Stackable",
     Usage: null,
@@ -330,7 +330,7 @@ const oOlivePit = {
     World: "Seedium",
     Recharge: "Fast",
     RangeArea: "Tile, 3x1",
-    Special: "Zombies Dragged, Chew Speed, Weaken Zombie",
+    Special: "Zombies Dragged, Chew Speed, Stall",
     Usage: null,
     Family: "Contain-mint",
 };
@@ -397,7 +397,7 @@ const oHeadbutterLettuce = {
 const oBoingsetta = {
     CodeName: "oBoingsetta",
     EngName: "Boingsetta",
-    SunNum: 175,
+    SunNum: 150,
     Attack: "Huge",
     World: "Seedium",
     Recharge: "Slow",
@@ -421,7 +421,7 @@ const oStickybombRice = {
 const oHocusCrocus = {
     CodeName: "oHocusCrocus",
     EngName: "Hocus Crocus",
-    SunNum: 225,
+    SunNum: 200,
     Attack: "Heavy",
     World: "Seedium",
     Recharge: "Sluggish",
