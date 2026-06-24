@@ -328,7 +328,7 @@ const oKiwibeast = {
     SunNum: 175,
     Attack: "Heavy",
     World: "Gemium",
-    Recharge: "Fast",
+    Recharge: "Mediocre",
     RangeArea: "Tile, 3x3, 5x5",
     Special: "Growth",
     Usage: null,
