@@ -178,7 +178,7 @@ let explainShade = NewEle("explainShade","div","cursor:pointer;position:absolute
         SetNone($("explainDOM"));
     }
 },EDAll);
-let explainDOM = NewEle("explainDOM","div",`position:relative;margin:auto;width:max-content;max-width:100%;top:20%;border-radius:5px;color:white;font-size:18px;text-align:center;padding:15px;background:rgba(0,0,0,0.8);display:none;`,{
+let explainDOM = NewEle("explainDOM","div",`position:relative;margin:auto;width:max-content;max-width:85%;top:20%;border-radius:5px;color:white;font-size:18px;text-align:center;padding:15px;background:rgba(0,0,0,0.8);display:none;`,{
     innerText: 'fuck you'
 },explainShade);
 AnswerBox.oninput = AnswerBox.onfocus = () => {
