@@ -200,6 +200,9 @@ Reflect.defineProperty(Math, 'seedV2', {  //查询对象中own属性数量
     }
 });
 Math.seedV2 = [3, 2];
+Math.loopNumber = function(n, min, max) {
+    return ((n - min) % (max - min + 1) + (max - min + 1)) % (max - min + 1) + min;
+}
 
 const oEffects = {
     /* Animate调用说明（请确保修改属性是css3所兼容的！）

@@ -172,6 +172,15 @@ let ReturnButton = NewEle(`ReturnButton`, 'div', `background: url(images/Return_
         SetNone(searchShade);
     }
 }, searchShade);
+let explainShade = NewEle("explainShade","div","cursor:pointer;position:absolute;left:0;top:0;width:100%;height:100%;z-index:1010;background:rgba(0,0,0,0.2);display:none;",{
+    onclick: function() {
+        SetNone($("explainShade"));
+        SetNone($("explainDOM"));
+    }
+},EDAll);
+let explainDOM = NewEle("explainDOM","div",`position:relative;margin:auto;width:max-content;top:20%;border-radius:5px;color:white;font-size:18px;text-align:center;padding:15px;background:rgba(0,0,0,0.8);display:none;`,{
+    innerText: 'fuck you'
+},explainShade);
 AnswerBox.oninput = AnswerBox.onfocus = () => {
     /*JUDGE THE ANSWER AND ADD THE PLANTS TO THE SEARCH RESULTS, AS WELL AS SHOW OR HIDE THE SEARCH RESULT BOX ACCORDINGLY*/
     if (AnswerBox.value.length > 0) {
@@ -437,6 +446,39 @@ function AddGuess(plantName, manual = false) {
             innerHTML: ((/World|Family|Recharge|Attack/.test(stat) && plantObj[stat] && !/\?\?\?|Variable/.test(plantObj[stat])) ? `<img src="images/${stat}/${plantObj[stat]}.png" alt="" style="position:relative;top:0px;width:30px;height:30px;vertical-align:middle;"> ` : ``) + (plantObj[stat] ?? "No"),
             className: "flip-card-back",
         }, temCard);
+
+        if (stat === "World" && !correct) {
+            temCard.style.cursor = 'pointer';
+            temCard.onclick = function() {
+                temCard.style.animation = 'CardBlink 1s infinite';
+                let curID = Number(WorldList[plantObj[stat]]);
+                let len = WorldArr.length-1;
+                explainDOM.innerText=`Surrounding worlds:\n${WorldArr[Math.loopNumber(curID-2,0,len)]} > ${WorldArr[Math.loopNumber(curID-1,0,len)]} > ${WorldArr[curID]} > ${WorldArr[Math.loopNumber(curID+1,0,len)]} > ${WorldArr[Math.loopNumber(curID+2,0,len)]}`
+                explainShade.onclick = function() {
+                    temCard.style.animation = '';
+                    SetNone($("explainShade"));
+                    SetNone($("explainDOM"));
+                }
+                SetBlock($('explainShade'));
+                SetBlock($('explainDOM'));
+            }
+        }
+        if (stat === "Family" && !correct) {
+            temCard.style.cursor = 'pointer';
+            temCard.onclick = function() {
+                temCard.style.animation = 'CardBlink 1s infinite';
+                let curID = Number(FamilyList[plantObj[stat]]);
+                let len = FamilyArr.length-1;
+                explainDOM.innerText=`Surrounding families:\n${FamilyArr[Math.loopNumber(curID-2,0,len)]} > ${FamilyArr[Math.loopNumber(curID-1,0,len)]} > ${FamilyArr[curID]} > ${FamilyArr[Math.loopNumber(curID+1,0,len)]} > ${FamilyArr[Math.loopNumber(curID+2,0,len)]}`
+                explainShade.onclick = function() {
+                    temCard.style.animation = '';
+                    SetNone($("explainShade"));
+                    SetNone($("explainDOM"));
+                }
+                SetBlock($('explainShade'));
+                SetBlock($('explainDOM'));
+            }
+        }
         setTimeout(() => {
             oEffects.Animate(temCard, {
                 "top": "0px",
